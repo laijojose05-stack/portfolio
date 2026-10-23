@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Laijo Jose | Student Developer Portfolio</title>
+  <meta name="description" content="Portfolio of Laijo Jose, a third-year Diploma in Computer Engineering student at AKM Polytechnic College in Kollam, Kerala, learning software development and building practical web projects.">
+  <meta name="author" content="Laijo Jose">
+  <meta name="theme-color" content="#0e0d0d">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Laijo Jose Portfolio">
+  <meta property="og:title" content="Laijo Jose | Student Developer">
+  <meta property="og:description" content="Third-year Diploma in Computer Engineering student at AKM Polytechnic College, exploring software development through practical projects.">
+  <meta property="og:image" content="/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Laijo Jose, Student Developer">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Laijo Jose | Student Developer">
+  <meta name="twitter:description" content="Third-year Diploma in Computer Engineering student at AKM Polytechnic College, exploring software development through practical projects.">
+  <meta name="twitter:image" content="/images/og-image.png">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="preload" href="/fonts/space-grotesk-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script type="module" src="/js/main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- Locally embedded Lucide-style icons. No external icon CDN required. -->
+  <svg class="icon-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></symbol>
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></symbol>
+    <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></symbol>
+    <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m6.08 9.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/><path d="m6.08 14.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/></symbol>
+    <symbol id="i-window" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="M2 9h20"/><path d="M6 6.5h.01"/><path d="M9.5 6.5h.01"/></symbol>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M21.42 10.92a1 1 0 0 0-.02-1.84L12.83 5.1a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.83l8.57 3.9a2 2 0 0 0 1.66 0Z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+    <symbol id="i-award" viewBox="0 0 24 24"><path d="m15.48 12.89 1.51 8.53-4.99-3-4.99 3 1.51-8.53"/><circle cx="12" cy="9" r="6"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M14.54 21.69a.5.5 0 0 0 .94-.03l6.5-19a.5.5 0 0 0-.64-.64l-19 6.5a.5.5 0 0 0-.03.94l7.93 3.1a2 2 0 0 1 1.13 1.13Z"/><path d="m21.85 2.15-10.94 10.94"/></symbol>
+    <symbol id="i-external" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  </svg>
+
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#home" aria-label="Laijo Jose, back to top">
+        <span class="brand__mark" aria-hidden="true">LJ</span>
+        <span class="brand__name">Laijo Jose</span>
+      </a>
+
+      <button class="menu-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu" aria-label="Open navigation menu">
+        <span class="menu-toggle__lines" aria-hidden="true">
+          <span></span>
+          <span></span>
+        </span>
+      </button>
+    </div>
+  </header>
+
+  <div class="menu-overlay" id="primary-menu" role="dialog" aria-modal="true" aria-label="Site navigation" aria-hidden="true" inert>
+    <div class="menu-overlay__inner">
+      <div class="menu-overlay__top">
+        <span class="mono">Navigation</span>
+        <span class="mono">Laijo Jose &mdash; 2026</span>
+      </div>
+
+      <nav class="menu-nav" aria-label="Primary navigation">
+        <ul class="menu-list">
+          <li><a class="menu-link" href="#home"><span class="menu-link__index">01</span><span>Home</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"></use></svg></a></li>
+          <li><a class="menu-link" href="#about"><span class="menu-link__index">02</span><span>About</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"></use></svg></a></li>
+          <li><a class="menu-link" href="#skills"><span class="menu-link__index">03</span><span>Skills</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"></use></svg></a></li>
+          <li><a class="menu-link" href="#education"><span class="menu-link__index">04</span><span>Education</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"></use></svg></a></li>
+          <li><a class="menu-link" href="#projects"><span class="menu-link__index">05</span><span>Projects</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"></use></svg></a></li>
+          <li><a class="menu-link" href="#certificates"><span class="menu-link__index">06</span><span>Certificates</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"></use></svg></a></li>
+          <li><a class="menu-link" href="#contact"><span class="menu-link__index">07</span><span>Contact</span><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"></use></svg></a></li>
+        </ul>
+      </nav>
+
+      <div class="menu-overlay__bottom">
+        <div class="menu-block">
+          <span class="mono">Elsewhere</span>
+          <div class="menu-socials">
+            <a href="https://github.com/laijojose05-stack" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">&nearr;</span><span class="sr-only">(opens in a new tab)</span></a>
+            <a href="https://www.linkedin.com/in/laijo-jose-96b60b3a8" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">&nearr;</span><span class="sr-only">(opens in a new tab)</span></a>
+            <a href="mailto:laijojose05@gmail.com">Email</a>
+          </div>
+        </div>
+        <div class="menu-block">
+          <span class="mono">Local time</span>
+          <span class="menu-time" id="local-clock">Kollam, IN</span>
+        </div>
+        <div class="menu-block menu-block--wide">
+          <span class="mono">Get in touch</span>
+          <a class="menu-email" href="mailto:laijojose05@gmail.com">laijojose05@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+    <!-- ============================ HERO ============================ -->
+    <section class="hero" id="home" aria-labelledby="hero-title" tabindex="-1">
+      <div class="shell hero__inner">
+        <div class="hero__copy">
+          <p class="hero__eyebrow"><span class="status-dot" aria-hidden="true"></span> Hi, I&rsquo;m a third-year Computer Engineering student</p>
+
+          <h1 class="hero__title" id="hero-title">
+            <span class="hero__line">LAIJO</span>
+            <span class="hero__line">JOSE<span class="accent">.</span></span>
+          </h1>
+
+          <p class="hero__role" aria-label="Student Developer">
+            <span class="hero__prompt" aria-hidden="true">&gt;</span>
+            <span class="hero__typed" data-typed aria-hidden="true">Student Developer</span><span class="typed-cursor" aria-hidden="true"></span>
+          </p>
+
+          <p class="hero__desc">I&rsquo;m a third-year Diploma in Computer Engineering student at AKM Polytechnic College, Kollam. I learn by building practical web projects and documenting the process honestly.</p>
+
+          <div class="hero__actions">
+            <a class="button button--solid" href="#projects">
+              View selected work
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-right"></use></svg>
+            </a>
+            <a class="button button--outline" href="#contact">Get in touch</a>
+          </div>
+
+          <div class="hero__socials">
+            <a href="https://github.com/laijojose05-stack" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-github"></use></svg>
+              GitHub
+              <span class="sr-only">(opens in a new tab)</span>
+            </a>
+            <a href="https://www.linkedin.com/in/laijo-jose-96b60b3a8" target="_blank" rel="noopener noreferrer">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-linkedin"></use></svg>
+              LinkedIn
+              <span class="sr-only">(opens in a new tab)</span>
+            </a>
+            <a href="mailto:laijojose05@gmail.com">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"></use></svg>
+              Email
+            </a>
+          </div>
+        </div>
+
+        <div class="hero__visual">
+          <figure class="hero__figure">
+            <div class="hero__frame">
+              <img src="/images/developer-illustration.svg" width="640" height="800" alt="Illustration of a student developer wearing headphones, working at a monitor filled with code in a dark workspace." fetchpriority="high">
+              <span class="hero__tag hero__tag--top"><span class="status-dot" aria-hidden="true"></span> Learning by building</span>
+              <span class="hero__tag hero__tag--bottom">HTML &middot; CSS &middot; JavaScript</span>
+            </div>
+            <figcaption class="hero__caption">
+              <span class="mono">Fig. 01</span>
+              <span>Student developer &mdash; Kollam, Kerala</span>
+            </figcaption>
+          </figure>
+          <a class="hero__scroll" href="#about">
+            <span class="mono">Scroll to explore</span>
+            <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-down"></use></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ ABOUT ============================ -->
+    <section class="section section--about" id="about" aria-labelledby="about-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <span class="section-head__label">About me</span>
+          <span class="section-head__meta">01 / 06</span>
+        </div>
+
+        <div class="about-grid">
+          <h2 class="about-title" id="about-title" data-reveal>Learning in public.<br>Building with intent<span class="accent">.</span></h2>
+
+          <div class="about-copy" data-reveal>
+            <p class="about-lead">I&rsquo;m Laijo Jose, a third-year Diploma in Computer Engineering student at AKM Polytechnic College. I enjoy learning programming, understanding how software works, and building practical web applications.</p>
+            <p>My projects include MediConnect, OpenLearn, and SeaFile, which explore healthcare information, educational technology, and personal cloud storage. Each project is a chance to turn something I&rsquo;ve learned into a real, working interface.</p>
+            <p>My current goal is to keep improving my programming skills, explore software development, and build projects that are genuinely useful.</p>
+            <p class="about-note"><span class="about-note__marker" aria-hidden="true"></span> I am at the beginning of my development journey. This portfolio documents what I am learning and building along the way.</p>
+          </div>
+        </div>
+
+        <dl class="fact-grid" data-reveal>
+          <div class="fact">
+            <dt>College</dt>
+            <dd>AKM Polytechnic College</dd>
+          </div>
+          <div class="fact">
+            <dt>Programme</dt>
+            <dd>Diploma in Computer Engineering</dd>
+          </div>
+          <div class="fact">
+            <dt>Study status</dt>
+            <dd>Third-year student</dd>
+          </div>
+          <div class="fact">
+            <dt>Expected graduation</dt>
+            <dd>2027</dd>
+          </div>
+          <div class="fact">
+            <dt>Location</dt>
+            <dd>Kollam, Kerala, India</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ============================ SKILLS ============================ -->
+    <section class="section section--skills" id="skills" aria-labelledby="skills-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <span class="section-head__label">Technical skills</span>
+          <span class="section-head__meta">02 / 06</span>
+        </div>
+
+        <div class="split-intro">
+          <h2 class="section-title" id="skills-title" data-reveal>Tools I&rsquo;m<br>learning &amp; using<span class="accent">.</span></h2>
+          <p class="split-intro__copy" data-reveal>No percentage scores here &mdash; just an honest view of the fundamentals I am practising and the technologies I have used in my projects.</p>
+        </div>
+
+        <ul class="skill-grid" aria-label="Technologies Laijo is learning and using">
+          <li class="skill-card" data-reveal><span class="skill-card__icon skill-card__icon--html" aria-hidden="true"></span><span class="skill-card__name">HTML</span></li>
+          <li class="skill-card" data-reveal><span class="skill-card__icon skill-card__icon--css" aria-hidden="true"></span><span class="skill-card__name">CSS</span></li>
+          <li class="skill-card" data-reveal><span class="skill-card__icon skill-card__icon--javascript" aria-hidden="true"></span><span class="skill-card__name">JavaScript</span></li>
+          <li class="skill-card" data-reveal><span class="skill-card__icon skill-card__icon--python" aria-hidden="true"></span><span class="skill-card__name">Python</span></li>
+          <li class="skill-card" data-reveal><span class="skill-card__icon skill-card__icon--c" aria-hidden="true"></span><span class="skill-card__name">C</span></li>
+          <li class="skill-card" data-reveal><span class="skill-card__icon skill-card__icon--java" aria-hidden="true"></span><span class="skill-card__name">Java</span></li>
+          <li class="skill-card" data-reveal><span class="skill-card__icon skill-card__icon--php" aria-hidden="true"></span><span class="skill-card__name">PHP</span></li>
+          <li class="skill-card" data-reveal><span class="skill-card__icon skill-card__icon--flask" aria-hidden="true"></span><span class="skill-card__name">Flask</span></li>
+          <li class="skill-card" data-reveal><span class="skill-card__icon skill-card__icon--nodejs" aria-hidden="true"></span><span class="skill-card__name">Node.js</span></li>
+          <li class="skill-card" data-reveal><span class="skill-card__icon skill-card__icon--express" aria-hidden="true"></span><span class="skill-card__name">Express</span></li>
+          <li class="skill-card" data-reveal><span class="skill-card__icon skill-card__icon--mysql" aria-hidden="true"></span><span class="skill-card__name">MySQL</span></li>
+          <li class="skill-card" data-reveal><span class="skill-card__icon skill-card__icon--supabase" aria-hidden="true"></span><span class="skill-card__name">Supabase</span></li>
+          <li class="skill-card" data-reveal><span class="skill-card__icon skill-card__icon--bootstrap" aria-hidden="true"></span><span class="skill-card__name">Bootstrap</span></li>
+        </ul>
+
+        <div class="skills-legend" data-reveal>
+          <p><span class="mono">Fundamentals</span><span>HTML, CSS, JavaScript, Python, C, Java</span></p>
+          <p><span class="mono">Project stack</span><span>PHP, Flask, Node.js, MySQL, Supabase</span></p>
+          <p><span class="mono">This portfolio</span><span>Node.js, Express, custom CSS</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ EDUCATION ============================ -->
+    <section class="section section--education" id="education" aria-labelledby="education-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <span class="section-head__label">Education</span>
+          <span class="section-head__meta">03 / 06</span>
+        </div>
+
+        <div class="education-layout">
+          <div class="education-aside" data-reveal>
+            <p class="mono">Currently pursuing</p>
+            <p class="education-year">2027<span>Expected graduation</span></p>
+            <p class="status-pill"><span class="status-dot" aria-hidden="true"></span> Third-year student</p>
+          </div>
+
+          <article class="education-card" data-reveal>
+            <span class="education-card__index" aria-hidden="true">03</span>
+            <p class="education-card__label">Diploma &middot; Computer Engineering</p>
+            <h2 class="education-card__title" id="education-title">AKM Polytechnic College</h2>
+            <p class="education-card__copy">Building a foundation in programming, databases, and web development through coursework and hands-on student projects.</p>
+
+            <dl class="education-meta">
+              <div>
+                <dt>Institution</dt>
+                <dd>AKM Polytechnic College</dd>
+              </div>
+              <div>
+                <dt>Programme</dt>
+                <dd>Diploma in Computer Engineering</dd>
+              </div>
+              <div>
+                <dt>Status</dt>
+                <dd>Third-year student</dd>
+              </div>
+              <div>
+                <dt>Expected graduation</dt>
+                <dd>2027</dd>
+              </div>
+            </dl>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ PROJECTS ============================ -->
+    <section class="section section--projects" id="projects" aria-labelledby="projects-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <span class="section-head__label">Selected work</span>
+          <span class="section-head__meta">04 / 06</span>
+        </div>
+
+        <div class="work-intro">
+          <h2 class="work-title" id="projects-title" data-reveal>Selected<br>work<span class="accent">.</span></h2>
+          <p class="work-intro__copy" data-reveal>Three student projects exploring healthcare information, learning technology, and personal cloud storage. Open any project to read the scope, workflow, and what I learned.</p>
+        </div>
+
+        <div class="filter-bar" data-reveal>
+          <span class="filter-bar__label mono">Filter by stack</span>
+          <div class="filter-group" id="project-filters" role="group" aria-label="Filter projects by technology">
+            <button class="filter-chip is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+            <button class="filter-chip" type="button" data-filter="php" aria-pressed="false">PHP</button>
+            <button class="filter-chip" type="button" data-filter="python" aria-pressed="false">Python</button>
+            <button class="filter-chip" type="button" data-filter="nodejs" aria-pressed="false">Node.js</button>
+            <button class="filter-chip" type="button" data-filter="mysql" aria-pressed="false">MySQL</button>
+            <button class="filter-chip" type="button" data-filter="supabase" aria-pressed="false">Supabase</button>
+          </div>
+          <p class="filter-status" id="filter-status" role="status" aria-live="polite">Showing all projects.</p>
+        </div>
+
+        <div class="works-list" id="projects-grid">
+          <!-- Project entries are generated from public/js/projects.js -->
+        </div>
+
+        <p class="projects-empty" id="projects-empty" hidden>No projects match this filter. <button class="text-button" type="button" id="reset-filter">Show all projects</button></p>
+
+        <noscript>
+          <p class="noscript-note">JavaScript is required to load the interactive project entries. You can still reach Laijo at <a href="mailto:laijojose05@gmail.com">laijojose05@gmail.com</a>.</p>
+        </noscript>
+      </div>
+    </section>
+
+    <!-- ============================ CERTIFICATES ============================ -->
+    <section class="section section--certificates" id="certificates" aria-labelledby="certificates-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <span class="section-head__label">Certificates</span>
+          <span class="section-head__meta">05 / 06</span>
+        </div>
+
+        <div class="split-intro">
+          <h2 class="section-title" id="certificates-title" data-reveal>Proof of<br>learning<span class="accent">.</span></h2>
+          <p class="split-intro__copy" data-reveal>A space for certificates as they are earned. Nothing is listed until it is real.</p>
+        </div>
+
+        <div class="certificates-grid" id="certificates-grid" data-reveal>
+          <div class="empty-cert">
+            <span class="empty-cert__index" aria-hidden="true">00</span>
+            <div class="empty-cert__body">
+              <p class="mono">credentials --list</p>
+              <h3>No certificates added yet.</h3>
+              <p>Certificates will appear here once they are added.</p>
+            </div>
+            <span class="empty-cert__line" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ CONTACT ============================ -->
+    <section class="section section--contact" id="contact" aria-labelledby="contact-title">
+      <div class="shell">
+        <div class="section-head" data-reveal>
+          <span class="section-head__label">Contact</span>
+          <span class="section-head__meta">06 / 06</span>
+        </div>
+
+        <div class="contact-intro">
+          <h2 class="contact-title" id="contact-title" data-reveal>Let&rsquo;s<br>connect<span class="accent">.</span></h2>
+          <p class="contact-intro__copy" data-reveal>Have a question, a learning opportunity, or a project idea? Send a message, or reach out through email, GitHub, or LinkedIn.</p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-details" data-reveal>
+            <a class="contact-row" href="mailto:laijojose05@gmail.com">
+              <span class="contact-row__icon" aria-hidden="true"><svg class="icon" focusable="false"><use href="#i-mail"></use></svg></span>
+              <span class="contact-row__text">
+                <span class="mono">Email</span>
+                <span class="contact-row__value">laijojose05@gmail.com</span>
+              </span>
+              <svg class="icon contact-row__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"></use></svg>
+            </a>
+
+            <a class="contact-row" href="https://github.com/laijojose05-stack" target="_blank" rel="noopener noreferrer">
+              <span class="contact-row__icon" aria-hidden="true"><svg class="icon" focusable="false"><use href="#i-github"></use></svg></span>
+              <span class="contact-row__text">
+                <span class="mono">GitHub</span>
+                <span class="contact-row__value">github.com/laijojose05-stack</span>
+              </span>
+              <svg class="icon contact-row__arrow" aria-hidden="true" focusable="false"><use href="#i-external"></use></svg>
+            </a>
+
+            <a class="contact-row" href="https://www.linkedin.com/in/laijo-jose-96b60b3a8" target="_blank" rel="noopener noreferrer">
+              <span class="contact-row__icon" aria-hidden="true"><svg class="icon" focusable="false"><use href="#i-linkedin"></use></svg></span>
+              <span class="contact-row__text">
+                <span class="mono">LinkedIn</span>
+                <span class="contact-row__value">laijo-jose-96b60b3a8</span>
+              </span>
+              <svg class="icon contact-row__arrow" aria-hidden="true" focusable="false"><use href="#i-external"></use></svg>
+            </a>
+
+            <div class="contact-row contact-row--static">
+              <span class="contact-row__icon" aria-hidden="true"><svg class="icon" focusable="false"><use href="#i-pin"></use></svg></span>
+              <span class="contact-row__text">
+                <span class="mono">Location</span>
+                <span class="contact-row__value">Kollam, Kerala, India</span>
+              </span>
+            </div>
+
+            <p class="contact-note"><span class="status-dot" aria-hidden="true"></span> I am currently a student, so email is the most reliable way to reach me.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================ FOOTER ============================ -->
+  <footer class="site-footer" id="site-footer">
+    <div class="shell">
+      <div class="footer-grid">
+        <div class="footer-brand-block">
+          <a class="footer-brand" href="#home">LAIJO JOSE<span class="accent">.</span></a>
+          <p class="footer-desc">Third-year Diploma in Computer Engineering student at AKM Polytechnic College, exploring software development through practical projects.</p>
+          <div class="footer-social">
+            <a href="https://github.com/laijojose05-stack" target="_blank" rel="noopener noreferrer" aria-label="Laijo Jose on GitHub (opens in a new tab)">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-github"></use></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/laijo-jose-96b60b3a8" target="_blank" rel="noopener noreferrer" aria-label="Laijo Jose on LinkedIn (opens in a new tab)">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-linkedin"></use></svg>
+            </a>
+            <a href="mailto:laijojose05@gmail.com" aria-label="Email Laijo Jose">
+              <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-mail"></use></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-links-block">
+          <h2 class="footer-heading mono">Explore</h2>
+          <ul class="footer-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#certificates">Certificates</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-block">
+          <h2 class="footer-heading mono">Connect</h2>
+          <ul class="footer-links">
+            <li><a href="mailto:laijojose05@gmail.com">laijojose05@gmail.com</a></li>
+            <li><a href="https://github.com/laijojose05-stack" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/laijo-jose-96b60b3a8" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            <li><span class="footer-location">Kollam, Kerala, India</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span id="current-year">2026</span> Laijo Jose. Built with Node.js, Express, and vanilla JavaScript.</p>
+        <p class="footer-bottom__location">Kollam, Kerala, India</p>
+        <a class="footer-top-link" href="#home">
+          Back to top
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up"></use></svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top">
+    <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up"></use></svg>
+  </button>
+
+  <!-- ============================ PROJECT MODAL ============================ -->
+  <div class="modal-overlay" id="project-modal" hidden>
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
+      <div class="modal-header">
+        <div>
+          <p class="modal-category mono" id="modal-category"></p>
+          <h2 class="modal-title" id="modal-title"></h2>
+        </div>
+        <button class="modal-close" id="modal-close" type="button" aria-label="Close project details">
+          <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-x"></use></svg>
+        </button>
+      </div>
+      <div class="modal-scroll" id="modal-scroll">
+        <div class="modal-content" id="modal-content"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
