@@ -77,9 +77,10 @@ export const projects = [
     category: 'Learning Management System',
     summary:
       'A Flask-based learning management system that organizes educational material in one accessible web interface.',
-    thumbnail: '/images/project-openlearn.svg',
-    thumbnailAlt:
-      'Illustration of the OpenLearn interface with a navigation sidebar, learning material cards, and a book illustration.',
+    thumbnail: '/images/project-openlearn.png',
+    thumbnailAlt: 'Screenshot of the OpenLearn learning management system.',
+    thumbnailWidth: 1920,
+    thumbnailHeight: 1080,
     technologies: ['Python', 'Flask', 'MySQL', 'HTML', 'CSS', 'JavaScript'],
     filters: ['python', 'mysql'],
     links: {
