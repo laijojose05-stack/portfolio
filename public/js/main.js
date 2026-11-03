@@ -201,6 +201,7 @@ function initFilters() {
 const modalOverlay = document.getElementById('project-modal');
 const modalDialog = modalOverlay?.querySelector('.modal-dialog');
 const modalContent = document.getElementById('modal-content');
+const modalScroll = document.getElementById('modal-scroll');
 const modalTitle = document.getElementById('modal-title');
 const modalCategory = document.getElementById('modal-category');
 const modalCloseButton = document.getElementById('modal-close');
@@ -332,6 +333,7 @@ function openModal(projectId) {
 
   // Tiny delay lets the browser register the element before the transition.
   window.requestAnimationFrame(() => {
+    if (modalScroll) modalScroll.scrollTop = 0;
     modalOverlay.classList.add('is-open');
     modalDialog.focus();
   });
@@ -415,34 +417,73 @@ function renderCertificates() {
 
   const fragment = document.createDocumentFragment();
 
-  certificates.forEach((certificate) => {
-    const card = element('article', 'certificate-card');
-    const iconBox = element('span', 'certificate-icon');
-    iconBox.appendChild(icon('i-award'));
+  certificates.forEach((certificate, index) => {
+    const item = element('article', 'work-item');
+    const titleId = `certificate-title-${index}`;
+    const url = safeExternalUrl(certificate.url);
+    const image = typeof certificate.image === 'string' && certificate.image.startsWith('/') ? certificate.image : null;
+    const linkUrl = url || image;
 
-    const body = element('div', 'certificate-body');
-    body.appendChild(element('h3', 'certificate-title', certificate.title));
+    item.setAttribute('data-reveal', '');
+    item.setAttribute('aria-labelledby', titleId);
+
+    const number = element('span', 'work-number', String(index + 1).padStart(2, '0'));
+    number.setAttribute('aria-hidden', 'true');
+
+    const body = element('div', 'work-body');
 
     const metaParts = [certificate.issuer, certificate.date].filter(Boolean);
     if (metaParts.length > 0) {
-      body.appendChild(element('p', 'certificate-meta', metaParts.join(' · ')));
+      body.appendChild(element('p', 'work-category', metaParts.join(' · ')));
     }
 
-    const url = safeExternalUrl(certificate.url);
-    if (url) {
+    const title = element('h3', 'work-title-name', certificate.title);
+    title.id = titleId;
+    body.appendChild(title);
+
+    if (certificate.summary) {
+      body.appendChild(element('p', 'work-summary', certificate.summary));
+    }
+
+    if (image) {
+      const thumb = document.createElement('a');
+      thumb.className = 'work-thumb work-thumb--cert';
+      thumb.href = image;
+      thumb.target = '_blank';
+      thumb.rel = 'noopener noreferrer';
+      thumb.setAttribute('aria-label', `Open the full ${certificate.title} certificate`);
+
+      const img = document.createElement('img');
+      img.src = image;
+      img.alt = certificate.imageAlt || `${certificate.title} certificate.`;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      thumb.appendChild(img);
+
+      const cue = element('span', 'work-thumb__cue');
+      cue.setAttribute('aria-hidden', 'true');
+      cue.appendChild(icon('i-arrow-up-right'));
+      thumb.appendChild(cue);
+
+      body.appendChild(thumb);
+    }
+
+    if (linkUrl) {
+      const actions = element('div', 'work-actions');
       const link = document.createElement('a');
-      link.className = 'certificate-link';
-      link.href = url;
+      link.className = 'btn-details';
+      link.href = linkUrl;
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
-      link.appendChild(document.createTextNode('View credential'));
-      link.appendChild(icon('i-external'));
-      body.appendChild(link);
+      link.appendChild(document.createTextNode(url ? 'View credential' : 'View certificate'));
+      link.appendChild(icon('i-arrow-up-right'));
+      actions.appendChild(link);
+      body.appendChild(actions);
     }
 
-    card.appendChild(iconBox);
-    card.appendChild(body);
-    fragment.appendChild(card);
+    item.appendChild(number);
+    item.appendChild(body);
+    fragment.appendChild(item);
   });
 
   grid.replaceChildren(fragment);
@@ -675,6 +716,8 @@ function initNavigation() {
  * Scroll effects: header shadow, back-to-top, active section
  * ------------------------------------------------------------------------ */
 const backToTopButton = document.getElementById('back-to-top');
+const siteFooter = document.querySelector('.site-footer');
+const scrollProgressBar = document.querySelector('.scroll-progress span');
 let updateActiveSection = () => {};
 
 function initScrollEffects() {
@@ -686,7 +729,15 @@ function initScrollEffects() {
     if (header) header.classList.toggle('is-scrolled', scrollY > 8);
 
     if (backToTopButton) {
-      backToTopButton.classList.toggle('is-visible', scrollY > 480);
+      const footerInView = siteFooter ? siteFooter.getBoundingClientRect().top < window.innerHeight : false;
+      backToTopButton.classList.toggle('is-visible', scrollY > 480 && !footerInView);
+      backToTopButton.classList.toggle('is-hidden', footerInView);
+    }
+
+    if (scrollProgressBar) {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? Math.min(scrollY / scrollable, 1) : 0;
+      scrollProgressBar.style.transform = `scaleX(${progress})`;
     }
 
     updateActiveSection();
