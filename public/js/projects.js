@@ -207,14 +207,50 @@ export const projects = [
 ];
 
 /*
- * Certificates: add entries in this shape when they are earned. Leave the array
- * empty until then. No certificate is shown unless it is added here.
+ * Certificates: add entries in this shape when they are earned. No certificate
+ * is shown unless it is added here.
  *
  * {
  *   title: 'Certificate title',
  *   issuer: 'Issuing organisation',
  *   date: 'Month Year',
+ *   summary: 'One or two sentences describing what the certificate covers.',
+ *   image: '/images/certificate-file.jpg',
+ *   imageAlt: 'Description of the certificate image.',
  *   url: 'https://link-to-the-credential',
  * }
+ *
+ * `summary`, `image`, and `url` are all optional.
  */
-export const certificates = [];
+export const certificates = [
+  {
+    title: 'AI & Machine Learning Internship',
+    issuer: 'SIMS AI Technologies LLP',
+    date: 'June 2026',
+    summary:
+      'A 30-day internship on artificial intelligence and machine learning completed through SIMS AI Technologies LLP, covering the fundamentals of AI and ML with applied exercises.',
+    image: '/images/certificate-sims-ai-internship.jpg',
+    imageAlt: 'SIMS AI certificate of internship awarded to Laijo Jose for a 30-day AI and ML internship.',
+    url: null,
+  },
+  {
+    title: 'AI & Machine Learning Workshop',
+    issuer: 'IPCS Global',
+    date: null,
+    summary:
+      'A workshop on artificial intelligence and machine learning conducted by IPCS Global for the Computer Engineering department at AKM Polytechnic College.',
+    image: '/images/certificate-ipcs-ai-workshop.jpg',
+    imageAlt: 'IPCS Global certificate of participation awarded to Laijo Jose for an AI and ML workshop.',
+    url: null,
+  },
+  {
+    title: 'Robotics Internship',
+    issuer: 'Logiprompt Techno Solutions',
+    date: 'January 2026',
+    summary:
+      'A five-day internship at Logiprompt Techno Solutions with robotics training, completed as part of the academic curriculum in January 2026.',
+    image: '/images/certificate-logiprompt-internship.jpg',
+    imageAlt: 'Logiprompt internship certificate awarded to Laijo Jose for a five-day robotics internship.',
+    url: null,
+  },
+];

@@ -206,10 +206,14 @@ export const certificates = [
     title: 'Certificate title',
     issuer: 'Issuing organisation',
     date: 'Month Year',
+    image: '/images/certificate-file.jpg',
+    imageAlt: 'Short description of the certificate image.',
     url: 'https://example.com/credential',
   },
 ];
 ```
+
+`image` and `url` are optional. When `image` is set, the card shows a thumbnail that opens the full certificate image in a new tab.
 
 The empty state ("No certificates added yet.") disappears automatically once the array is non-empty.
 
