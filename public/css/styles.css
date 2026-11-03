@@ -1214,19 +1214,19 @@ body.menu-open .site-header::after {
   transform: scale(1.08);
 }
 
-.skill-card__icon--html { --icon: url('/images/icons/html.svg'); }
-.skill-card__icon--css { --icon: url('/images/icons/css.svg'); }
-.skill-card__icon--javascript { --icon: url('/images/icons/javascript.svg'); }
-.skill-card__icon--python { --icon: url('/images/icons/python.svg'); }
-.skill-card__icon--c { --icon: url('/images/icons/c.svg'); }
-.skill-card__icon--java { --icon: url('/images/icons/java.svg'); }
-.skill-card__icon--php { --icon: url('/images/icons/php.svg'); }
-.skill-card__icon--flask { --icon: url('/images/icons/flask.svg'); }
-.skill-card__icon--nodejs { --icon: url('/images/icons/nodejs.svg'); }
-.skill-card__icon--express { --icon: url('/images/icons/express.svg'); }
-.skill-card__icon--mysql { --icon: url('/images/icons/mysql.svg'); }
-.skill-card__icon--supabase { --icon: url('/images/icons/supabase.svg'); }
-.skill-card__icon--bootstrap { --icon: url('/images/icons/bootstrap.svg'); }
+.skill-card__icon--html { --icon: url('/images/icons/html.svg?v=2'); }
+.skill-card__icon--css { --icon: url('/images/icons/css.svg?v=2'); }
+.skill-card__icon--javascript { --icon: url('/images/icons/javascript.svg?v=2'); }
+.skill-card__icon--python { --icon: url('/images/icons/python.svg?v=2'); }
+.skill-card__icon--c { --icon: url('/images/icons/c.svg?v=2'); }
+.skill-card__icon--java { --icon: url('/images/icons/java.svg?v=2'); }
+.skill-card__icon--php { --icon: url('/images/icons/php.svg?v=2'); }
+.skill-card__icon--flask { --icon: url('/images/icons/flask.svg?v=2'); }
+.skill-card__icon--nodejs { --icon: url('/images/icons/nodejs.svg?v=2'); }
+.skill-card__icon--express { --icon: url('/images/icons/express.svg?v=2'); }
+.skill-card__icon--mysql { --icon: url('/images/icons/mysql.svg?v=2'); }
+.skill-card__icon--supabase { --icon: url('/images/icons/supabase.svg?v=2'); }
+.skill-card__icon--bootstrap { --icon: url('/images/icons/bootstrap.svg?v=2'); }
 
 .skill-card__name {
   font-family: var(--font-mono);
