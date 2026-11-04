@@ -1214,19 +1214,19 @@ body.menu-open .site-header::after {
   transform: scale(1.08);
 }
 
-.skill-card__icon--html { --icon: url('/images/icons/html.svg?v=3'); }
-.skill-card__icon--css { --icon: url('/images/icons/css.svg?v=3'); }
-.skill-card__icon--javascript { --icon: url('/images/icons/javascript.svg?v=3'); }
-.skill-card__icon--python { --icon: url('/images/icons/python.svg?v=3'); }
-.skill-card__icon--c { --icon: url('/images/icons/c.svg?v=3'); }
-.skill-card__icon--java { --icon: url('/images/icons/java.svg?v=3'); }
-.skill-card__icon--php { --icon: url('/images/icons/php.svg?v=3'); }
-.skill-card__icon--flask { --icon: url('/images/icons/flask.svg?v=3'); }
-.skill-card__icon--nodejs { --icon: url('/images/icons/nodejs.svg?v=3'); }
-.skill-card__icon--express { --icon: url('/images/icons/express.svg?v=3'); }
-.skill-card__icon--mysql { --icon: url('/images/icons/mysql.svg?v=3'); }
-.skill-card__icon--supabase { --icon: url('/images/icons/supabase.svg?v=3'); }
-.skill-card__icon--bootstrap { --icon: url('/images/icons/bootstrap.svg?v=3'); }
+.skill-card__icon--html { --icon: url('/images/icons/html.svg?v=4'); }
+.skill-card__icon--css { --icon: url('/images/icons/css.svg?v=4'); }
+.skill-card__icon--javascript { --icon: url('/images/icons/javascript.svg?v=4'); }
+.skill-card__icon--python { --icon: url('/images/icons/python.svg?v=4'); }
+.skill-card__icon--c { --icon: url('/images/icons/c.svg?v=4'); }
+.skill-card__icon--java { --icon: url('/images/icons/java.svg?v=4'); }
+.skill-card__icon--php { --icon: url('/images/icons/php.svg?v=4'); }
+.skill-card__icon--flask { --icon: url('/images/icons/flask.svg?v=4'); }
+.skill-card__icon--nodejs { --icon: url('/images/icons/nodejs.svg?v=4'); }
+.skill-card__icon--express { --icon: url('/images/icons/express.svg?v=4'); }
+.skill-card__icon--mysql { --icon: url('/images/icons/mysql.svg?v=4'); }
+.skill-card__icon--supabase { --icon: url('/images/icons/supabase.svg?v=4'); }
+.skill-card__icon--bootstrap { --icon: url('/images/icons/bootstrap.svg?v=4'); }
 
 .skill-card__name {
   font-family: var(--font-mono);
@@ -1255,11 +1255,18 @@ body.menu-open .site-header::after {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-width: var(--skill-card-min-width, clamp(124px, 11vw, 170px));
-  min-height: var(--skill-card-min-height, clamp(124px, 11vw, 160px));
-  padding: var(--skill-card-padding, clamp(0.75rem, 2vw, 1.15rem));
-  gap: var(--skill-card-gap, 1rem);
+  min-width: var(--skill-card-min-width, clamp(120px, 10vw, 150px));
+  min-height: var(--skill-card-min-height, clamp(110px, 9vw, 140px));
+  padding: var(--skill-card-padding, clamp(0.5rem, 1vw, 0.75rem));
+  gap: var(--skill-card-gap, 0.55rem);
   text-align: center;
+  border: 0;
+  background: transparent;
+  color: var(--dim);
+}
+
+.skill-grid.skill-marquee .skill-card::before {
+  content: none;
 }
 
 .skill-grid.skill-marquee .skill-card__icon {
