@@ -1042,7 +1042,9 @@ function initSkillsMarquee() {
     }
 
     track.style.setProperty('--skill-set-width', `${Math.round(oneSetWidth)}px`);
-    track.style.setProperty('--skill-duration', `${Math.max(20, Math.min(60, oneSetWidth / 50))}s`);
+    const duration = Math.max(15, Math.min(40, oneSetWidth / 100));
+    track.style.setProperty('--skill-duration', `${duration}s`);
+    track.style.animation = `skillMarquee ${duration}s linear infinite`;
   }
 
   build();
