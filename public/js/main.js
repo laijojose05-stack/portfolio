@@ -1360,6 +1360,11 @@ function initCinematicIntro() {
   function renderNodes() {
     ctx.clearRect(0, 0, width, height);
 
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const lineColor = isLight ? '46, 125, 50' : '215, 243, 106';
+    const particleColor = isLight ? 'rgba(46, 125, 50, 0.35)' : 'rgba(215, 243, 106, 0.45)';
+    const lineAlphaBase = isLight ? 0.16 : 0.12;
+
     // Draw connecting mesh lines
     ctx.lineWidth = 1;
     for (let i = 0; i < nodes.length; i++) {
@@ -1368,7 +1373,7 @@ function initCinematicIntro() {
         const dy = nodes[i].y - nodes[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < 140) {
-          ctx.strokeStyle = `rgba(215, 243, 106, ${(1 - dist / 140) * 0.12})`;
+          ctx.strokeStyle = `rgba(${lineColor}, ${(1 - dist / 140) * lineAlphaBase})`;
           ctx.beginPath();
           ctx.moveTo(nodes[i].x, nodes[i].y);
           ctx.lineTo(nodes[j].x, nodes[j].y);
@@ -1377,7 +1382,7 @@ function initCinematicIntro() {
       }
     }
 
-    // Draw glowing particles
+    // Draw particles
     nodes.forEach((n) => {
       n.x += n.vx;
       n.y += n.vy;
@@ -1386,7 +1391,7 @@ function initCinematicIntro() {
       if (n.y < 0) n.y = height;
       if (n.y > height) n.y = 0;
 
-      ctx.fillStyle = 'rgba(215, 243, 106, 0.45)';
+      ctx.fillStyle = particleColor;
       ctx.beginPath();
       ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
       ctx.fill();

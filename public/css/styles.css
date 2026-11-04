@@ -4062,3 +4062,44 @@ body.intro-ready .hero__socials {
     font-size: 0.62rem;
   }
 }
+
+
+/* --------------------------------------------------------------------------
+   Light Mode Adaptation for Cinematic Intro
+   ------------------------------------------------------------------------ */
+[data-theme='light'] .cinematic-intro {
+  background: #f8f7f4;
+  color: #090c0a;
+}
+
+[data-theme='light'] .cinematic-vignette {
+  background: radial-gradient(
+    circle at 50% 50%,
+    transparent 30%,
+    rgba(248, 247, 244, 0.6) 70%,
+    rgba(248, 247, 244, 0.95) 100%
+  );
+}
+
+[data-theme='light'] .cinematic-badge {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(25, 28, 26, 0.12);
+  color: var(--accent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme='light'] .cinematic-name {
+  color: #090c0a;
+}
+
+[data-theme='light'] .cinematic-sub {
+  color: #575c55;
+}
+
+[data-theme='light'] .cinematic-timeline {
+  background: rgba(25, 28, 26, 0.1);
+}
+
+[data-theme='light'] .cinematic-timeline__fill {
+  background: var(--accent);
+}
