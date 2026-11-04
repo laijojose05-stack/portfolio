@@ -409,7 +409,7 @@ function initModal() {
 }
 
 /* --------------------------------------------------------------------------
- * Certificates
+ * Certificates: dedicated card layout with click-to-preview lightbox.
  * ------------------------------------------------------------------------ */
 function renderCertificates() {
   const grid = document.getElementById('certificates-grid');
@@ -418,75 +418,147 @@ function renderCertificates() {
   const fragment = document.createDocumentFragment();
 
   certificates.forEach((certificate, index) => {
-    const item = element('article', 'work-item');
+    const item = element('article', 'certificate-card');
     const titleId = `certificate-title-${index}`;
-    const url = safeExternalUrl(certificate.url);
     const image = typeof certificate.image === 'string' && certificate.image.startsWith('/') ? certificate.image : null;
-    const linkUrl = url || image;
+    const url = safeExternalUrl(certificate.url);
 
     item.setAttribute('data-reveal', '');
     item.setAttribute('aria-labelledby', titleId);
 
-    const number = element('span', 'work-number', String(index + 1).padStart(2, '0'));
-    number.setAttribute('aria-hidden', 'true');
-
-    const body = element('div', 'work-body');
-
-    const metaParts = [certificate.issuer, certificate.date].filter(Boolean);
-    if (metaParts.length > 0) {
-      body.appendChild(element('p', 'work-category', metaParts.join(' · ')));
-    }
-
-    const title = element('h3', 'work-title-name', certificate.title);
-    title.id = titleId;
-    body.appendChild(title);
-
-    if (certificate.summary) {
-      body.appendChild(element('p', 'work-summary', certificate.summary));
-    }
-
+    // Left: certificate thumbnail.
     if (image) {
-      const thumb = document.createElement('a');
-      thumb.className = 'work-thumb work-thumb--cert';
-      thumb.href = image;
-      thumb.target = '_blank';
-      thumb.rel = 'noopener noreferrer';
-      thumb.setAttribute('aria-label', `Open the full ${certificate.title} certificate`);
+      const thumbWrap = element('div', 'certificate-thumb');
+      thumbWrap.setAttribute('role', 'button');
+      thumbWrap.setAttribute('tabindex', '0');
+      thumbWrap.setAttribute('aria-label', `View the ${certificate.title} certificate`);
+      thumbWrap.dataset.certIndex = String(index);
 
       const img = document.createElement('img');
       img.src = image;
       img.alt = certificate.imageAlt || `${certificate.title} certificate.`;
       img.loading = 'lazy';
       img.decoding = 'async';
-      thumb.appendChild(img);
+      thumbWrap.appendChild(img);
 
-      const cue = element('span', 'work-thumb__cue');
+      const cue = element('span', 'certificate-thumb__cue');
       cue.setAttribute('aria-hidden', 'true');
       cue.appendChild(icon('i-arrow-up-right'));
-      thumb.appendChild(cue);
+      thumbWrap.appendChild(cue);
 
-      body.appendChild(thumb);
+      item.appendChild(thumbWrap);
     }
 
-    if (linkUrl) {
-      const actions = element('div', 'work-actions');
+    // Right: metadata, title, summary, actions.
+    const body = element('div', 'certificate-body');
+
+    const metaParts = [certificate.issuer, certificate.date].filter(Boolean);
+    if (metaParts.length > 0) {
+      body.appendChild(element('p', 'certificate-meta', metaParts.join(' · ')));
+    }
+
+    const title = element('h3', 'certificate-title', certificate.title);
+    title.id = titleId;
+    body.appendChild(title);
+
+    if (certificate.summary) {
+      body.appendChild(element('p', 'certificate-summary', certificate.summary));
+    }
+
+    const actions = element('div', 'certificate-actions');
+    if (url) {
       const link = document.createElement('a');
-      link.className = 'btn-details';
-      link.href = linkUrl;
+      link.className = 'button button--solid';
+      link.href = url;
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
-      link.appendChild(document.createTextNode(url ? 'View credential' : 'View certificate'));
+      link.appendChild(document.createTextNode('Verify credential'));
       link.appendChild(icon('i-arrow-up-right'));
       actions.appendChild(link);
-      body.appendChild(actions);
     }
+    if (image) {
+      const view = document.createElement('a');
+      view.className = 'button button--outline';
+      view.href = image;
+      view.target = '_blank';
+      view.rel = 'noopener noreferrer';
+      view.appendChild(document.createTextNode('View certificate'));
+      view.appendChild(icon('i-arrow-up-right'));
+      actions.appendChild(view);
+    }
+    body.appendChild(actions);
 
-    item.appendChild(number);
     item.appendChild(body);
     fragment.appendChild(item);
   });
 
   grid.replaceChildren(fragment);
+}
+
+/* --------------------------------------------------------------------------
+ * Certificate lightbox modal: open a full certificate image on thumbnail click.
+ * ------------------------------------------------------------------------ */
+const certModal = document.getElementById('certificate-modal');
+const certModalClose = document.getElementById('certificate-modal-close');
+const certModalImage = document.getElementById('certificate-modal-image');
+const certModalCaption = document.getElementById('certificate-modal-caption');
+let certModalOpen = false;
+
+function openCertModal(index) {
+  const cert = certificates[index];
+  if (!cert || !certModal) return;
+  certModalImage.src = cert.image;
+  certModalImage.alt = cert.imageAlt || cert.title;
+  const datePart = cert.date ? ` · ${cert.date}` : '';
+  certModalCaption.textContent = `${cert.title} — ${cert.issuer}${datePart}`;
+  certModal.hidden = false;
+  document.body.classList.add('cert-modal-open');
+  window.requestAnimationFrame(() => certModal.classList.add('is-open'));
+  certModalOpen = true;
+}
+
+function closeCertModal() {
+  if (!certModalOpen) return;
+  certModal.classList.remove('is-open');
+  document.body.classList.remove('cert-modal-open');
+  certModalOpen = false;
+  certModalTimer = window.setTimeout(() => {
+    certModal.hidden = true;
+    certModalTimer = null;
+  }, reduceMotion ? 0 : 250);
+}
+
+let certModalTimer = null;
+
+function initCertModal() {
+  const grid = document.getElementById('certificates-grid');
+  if (!grid || !certModal) return;
+
+  grid.addEventListener('click', (event) => {
+    const thumb = event.target.closest('[data-cert-index]');
+    if (thumb) openCertModal(thumb.dataset.certIndex);
+  });
+
+  grid.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      const thumb = event.target.closest('[data-cert-index]');
+      if (thumb) openCertModal(thumb.dataset.certIndex);
+    }
+  });
+
+  certModalClose?.addEventListener('click', closeCertModal);
+
+  certModal?.addEventListener('click', (event) => {
+    if (event.target === certModal) closeCertModal();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (!certModalOpen) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeCertModal();
+    }
+  });
 }
 
 /* --------------------------------------------------------------------------
