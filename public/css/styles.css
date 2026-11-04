@@ -1237,6 +1237,61 @@ body.menu-open .site-header::after {
   text-transform: uppercase;
 }
 
+/* Skills infinite marquee (right-to-left). Disabled under prefers-reduced-motion. */
+.skill-grid.skill-marquee {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  gap: var(--skill-gap, clamp(1rem, 3vw, 1.6rem));
+}
+
+.skill-grid.skill-marquee .skill-card {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--skill-card-min-width, clamp(124px, 11vw, 170px));
+  min-height: var(--skill-card-min-height, clamp(124px, 11vw, 160px));
+  padding: var(--skill-card-padding, clamp(0.75rem, 2vw, 1.15rem));
+  gap: var(--skill-card-gap, 1rem);
+  text-align: center;
+}
+
+.skill-grid.skill-marquee .skill-card__icon {
+  width: clamp(28px, 6vw, 36px);
+  height: clamp(28px, 6vw, 36px);
+  margin: 0;
+}
+
+.skill-grid.skill-marquee .skill-card__name {
+  font-size: clamp(0.6rem, 1.4vw, 0.65rem);
+}
+
+.skill-track {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: inherit;
+  align-items: center;
+  width: max-content;
+  will-change: transform;
+  animation: var(--skill-duration, 30s) linear infinite;
+}
+
+@keyframes skillMarquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-1 * var(--skill-set-width, 0))); }
+}
+
+.skill-grid.skill-marquee:hover .skill-track,
+.section--skills:hover .skill-track {
+  animation-play-state: paused;
+}
+
 .skills-legend {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

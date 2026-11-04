@@ -999,6 +999,64 @@ function initContactForm() {
 }
 
 /* --------------------------------------------------------------------------
+ * Technologies marquee: seamless right-to-left scrolling skill cards.
+ * Clones the skill set enough to cover the viewport plus one full cycle,
+ * then animates one set width so the loop is seamless.
+ * ------------------------------------------------------------------------ */
+function initSkillsMarquee() {
+  if (reduceMotion) return;
+  const grid = document.querySelector('ul.skill-grid[aria-label="Technologies Laijo is learning and using"]');
+  if (!grid || grid.classList.contains('skill-marquee-init')) return;
+
+  const originals = Array.from(grid.querySelectorAll('.skill-card'));
+  if (originals.length === 0) return;
+
+  originals.forEach((card) => card.removeAttribute('data-reveal'));
+  const masterHTML = originals.map((card) => card.outerHTML).join('');
+  if (!masterHTML) return;
+  originals.forEach((card) => card.remove());
+
+  let masterSet = masterHTML;
+
+  function build() {
+    const existing = grid.querySelector('.skill-track');
+    if (existing) existing.remove();
+
+    const track = document.createElement('div');
+    track.className = 'skill-track';
+    const containerWidth = grid.clientWidth || 0;
+
+    track.innerHTML = masterSet;
+    grid.appendChild(track);
+
+    const oneSetWidth = track.scrollWidth || 0;
+    if (!oneSetWidth) {
+      track.remove();
+      return;
+    }
+
+    const copies = Math.max(2, Math.ceil((oneSetWidth + containerWidth) / oneSetWidth));
+    track.innerHTML = '';
+    for (let i = 0; i < copies; i++) {
+      track.insertAdjacentHTML('beforeend', masterSet);
+    }
+
+    track.style.setProperty('--skill-set-width', `${Math.round(oneSetWidth)}px`);
+    track.style.setProperty('--skill-duration', `${Math.max(20, Math.min(60, oneSetWidth / 50))}s`);
+  }
+
+  build();
+
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(build).observe(grid);
+  } else {
+    window.addEventListener('resize', build);
+  }
+
+  grid.classList.add('skill-marquee', 'skill-marquee-init');
+}
+
+/* --------------------------------------------------------------------------
  * Initialise everything
  * ------------------------------------------------------------------------ */
 if (projectsGrid) {
@@ -1013,6 +1071,7 @@ const navUpdater = initNavigation();
 if (typeof navUpdater === 'function') updateActiveSection = navUpdater;
 
 initScrollEffects();
+initSkillsMarquee();
 initReveal();
 initContactForm();
 initTypedRole();
