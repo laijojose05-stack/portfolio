@@ -22,8 +22,8 @@
   <meta name="twitter:description" content="Third-year Diploma in Computer Engineering student at AKM Polytechnic College, exploring software development through practical projects.">
   <meta name="twitter:image" content="/images/og-image.png">
 
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <link rel="apple-touch-icon" href="/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2">
+  <link rel="apple-touch-icon" href="/favicon.svg?v=2">
   <link rel="preload" href="/fonts/space-grotesk-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/styles.css?v=4">
@@ -53,7 +53,37 @@
     <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
     <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol>
     <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></symbol>
   </svg>
+
+  
+  <!-- ============================ CINEMATIC INTRO EXPERIENCE ============================ -->
+  <aside class="cinematic-intro" id="cinematic-intro" aria-label="Cinematic intro presentation">
+    <canvas class="cinematic-canvas" id="cinematic-canvas"></canvas>
+    <div class="cinematic-vignette" aria-hidden="true"></div>
+
+    <div class="cinematic-content">
+      <div class="cinematic-badge mono">
+        <span class="status-dot"></span>
+        <span id="cinematic-badge-text">SYSTEM // BOOT</span>
+      </div>
+
+      <div class="cinematic-name-wrap">
+        <h1 class="cinematic-name" id="cinematic-name">
+          <span class="cinematic-part cinematic-first">LAIJO</span>
+          <span class="cinematic-part cinematic-last">JOSE<span class="accent">.</span></span>
+        </h1>
+        <p class="cinematic-sub mono" id="cinematic-sub">&gt; DIPLOMA IN COMPUTER ENGINEERING &middot; 2026</p>
+      </div>
+
+      <div class="cinematic-timeline">
+        <div class="cinematic-timeline__fill" id="cinematic-timeline-fill"></div>
+      </div>
+    </div>
+  </aside>
 
   <header class="site-header" id="site-header">
     <div class="header-inner">
@@ -62,12 +92,19 @@
         <span class="brand__name">Laijo Jose</span>
       </a>
 
-      <button class="menu-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu" aria-label="Open navigation menu">
+      <div class="header-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme">
+          <svg class="icon icon-sun" aria-hidden="true" focusable="false"><use href="#i-sun"></use></svg>
+          <svg class="icon icon-moon" aria-hidden="true" focusable="false"><use href="#i-moon"></use></svg>
+        </button>
+
+        <button class="menu-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-menu" aria-label="Open navigation menu">
         <span class="menu-toggle__lines" aria-hidden="true">
           <span></span>
           <span></span>
         </span>
       </button>
+      </div>
     </div>
   </header>
 
@@ -482,5 +519,6 @@
       </div>
     </div>
   </div>
-</body>
+
+  </body>
 </html>

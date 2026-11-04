@@ -1117,9 +1117,20 @@ function initSkillsMarquee() {
     const duration = Math.max(15, Math.min(40, oneSetWidth / 100));
     track.style.setProperty('--skill-duration', `${duration}s`);
     track.style.animation = `skillMarquee ${duration}s linear infinite`;
+    track.style.animationPlayState = "";
   }
 
   build();
+
+  grid.addEventListener('mouseenter', () => {
+    const t = grid.querySelector('.skill-track');
+    if (t) t.style.animationPlayState = 'paused';
+  });
+
+  grid.addEventListener('mouseleave', () => {
+    const t = grid.querySelector('.skill-track');
+    if (t) t.style.animationPlayState = 'running';
+  });
 
   if (typeof ResizeObserver !== 'undefined') {
     new ResizeObserver(build).observe(grid);
@@ -1150,3 +1161,295 @@ initReveal();
 initContactForm();
 initTypedRole();
 initLocalClock();
+
+
+/* --------------------------------------------------------------------------
+ * Ambient Cursor Spotlight & Subtle Dynamic Parallax
+ * ------------------------------------------------------------------------ */
+function initAmbientCursor() {
+  const isFinePointer = window.matchMedia('(pointer: fine)').matches;
+  if (!isFinePointer || reduceMotion) return;
+
+  const root = document.documentElement;
+  const heroTitle = document.querySelector('.hero__title');
+  const cards = Array.from(document.querySelectorAll('.work-thumb, .education-card'));
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let targetX = mouseX;
+  let targetY = mouseY;
+  let isTicking = false;
+
+  window.addEventListener(
+    'mousemove',
+    (e) => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+      root.style.setProperty('--mouse-opacity', '1');
+
+      // Update card relative coordinate for spotlight border
+      cards.forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        if (
+          targetX >= rect.left - 100 &&
+          targetX <= rect.right + 100 &&
+          targetY >= rect.top - 100 &&
+          targetY <= rect.bottom + 100
+        ) {
+          card.style.setProperty('--card-mouse-x', `${targetX - rect.left}px`);
+          card.style.setProperty('--card-mouse-y', `${targetY - rect.top}px`);
+        }
+      });
+
+      if (!isTicking) {
+        isTicking = true;
+        window.requestAnimationFrame(updateCursorEffects);
+      }
+    },
+    { passive: true }
+  );
+
+  document.addEventListener('mouseleave', () => {
+    root.style.setProperty('--mouse-opacity', '0');
+    if (heroTitle) heroTitle.style.transform = 'none';
+  });
+
+  function updateCursorEffects() {
+    // Smooth lerp for ambient fluid lighting
+    const ease = 0.12;
+    mouseX += (targetX - mouseX) * ease;
+    mouseY += (targetY - mouseY) * ease;
+
+    root.style.setProperty('--mouse-x', `${mouseX.toFixed(1)}px`);
+    root.style.setProperty('--mouse-y', `${mouseY.toFixed(1)}px`);
+
+    // Subtle 3D parallax on hero title when cursor is in the hero section
+    if (heroTitle && window.scrollY < window.innerHeight) {
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      const tiltX = ((mouseX - centerX) / centerX) * 5; // max 5px tilt
+      const tiltY = ((mouseY - centerY) / centerY) * 3;
+      heroTitle.style.transform = `translate3d(${tiltX.toFixed(2)}px, ${tiltY.toFixed(2)}px, 0)`;
+    }
+
+    if (Math.abs(targetX - mouseX) > 0.2 || Math.abs(targetY - mouseY) > 0.2) {
+      window.requestAnimationFrame(updateCursorEffects);
+    } else {
+      isTicking = false;
+    }
+  }
+}
+
+initAmbientCursor();
+
+
+/* --------------------------------------------------------------------------
+ * Theme Switcher: System Theme Follower & Manual Toggle
+ * ------------------------------------------------------------------------ */
+function initTheme() {
+  const toggleBtn = document.getElementById('theme-toggle');
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
+  const STORAGE_KEY = 'portfolio-theme';
+
+  function getEffectiveTheme() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === 'light' || saved === 'dark') return saved;
+    return mediaQuery.matches ? 'light' : 'dark';
+  }
+
+  function applyTheme(theme, isManual = false) {
+    document.documentElement.setAttribute('data-theme', theme);
+
+    if (isManual) {
+      localStorage.setItem(STORAGE_KEY, theme);
+    }
+
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    if (toggleBtn) {
+      toggleBtn.setAttribute('aria-label', `Switch to ${nextTheme} theme`);
+      toggleBtn.setAttribute('title', `Switch to ${nextTheme} theme`);
+    }
+
+    // Update meta theme-color for mobile address bars
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute('content', theme === 'light' ? '#f5f4ee' : '#0b0d0c');
+    }
+  }
+
+  // Initial application from storage or system preference
+  applyTheme(getEffectiveTheme());
+
+  // Listen to system preference changes when user has not pinned a manual choice
+  mediaQuery.addEventListener('change', (e) => {
+    if (!localStorage.getItem(STORAGE_KEY)) {
+      applyTheme(e.matches ? 'light' : 'dark');
+    }
+  });
+
+  // Manual toggle click handler
+  toggleBtn?.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next, true);
+  });
+}
+
+initTheme();
+
+/* --------------------------------------------------------------------------
+ * High-End Cinematic Editorial Intro Engine
+ * ------------------------------------------------------------------------ */
+function initCinematicIntro() {
+  const introEl = document.getElementById('cinematic-intro');
+  const canvas = document.getElementById('cinematic-canvas');
+  const badge = document.querySelector('.cinematic-badge');
+  const badgeText = document.getElementById('cinematic-badge-text');
+  const firstName = document.querySelector('.cinematic-first');
+  const lastName = document.querySelector('.cinematic-last');
+  const subText = document.getElementById('cinematic-sub');
+  const progressFill = document.getElementById('cinematic-timeline-fill');
+
+  if (!introEl || !canvas) return;
+
+  if (reduceMotion) {
+    introEl.style.display = 'none';
+    document.body.classList.add('intro-ready');
+    return;
+  }
+
+  document.body.classList.add('intro-active');
+
+  // Canvas Starfield / Mesh Simulation
+  const ctx = canvas.getContext('2d');
+  let animationId = null;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+    ctx.scale(dpr, dpr);
+  }
+  resizeCanvas();
+
+  let width = window.innerWidth;
+  let height = window.innerHeight;
+
+  window.addEventListener('resize', () => {
+    if (!introEl.parentNode) return;
+    width = window.innerWidth;
+    height = window.innerHeight;
+    resizeCanvas();
+  });
+
+  // Tap anywhere on mobile to smoothly advance/finish intro early if desired
+  introEl.addEventListener('touchstart', () => {}, { passive: true });
+
+  const nodes = [];
+  const nodeCount = Math.min(width < 600 ? 28 : 60, Math.floor((width * height) / 16000));
+  for (let i = 0; i < nodeCount; i++) {
+    nodes.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      vx: (Math.random() - 0.5) * 0.6,
+      vy: (Math.random() - 0.5) * 0.6,
+      radius: Math.random() * 1.8 + 0.8,
+    });
+  }
+
+  function renderNodes() {
+    ctx.clearRect(0, 0, width, height);
+
+    // Draw connecting mesh lines
+    ctx.lineWidth = 1;
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 140) {
+          ctx.strokeStyle = `rgba(215, 243, 106, ${(1 - dist / 140) * 0.12})`;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    // Draw glowing particles
+    nodes.forEach((n) => {
+      n.x += n.vx;
+      n.y += n.vy;
+      if (n.x < 0) n.x = width;
+      if (n.x > width) n.x = 0;
+      if (n.y < 0) n.y = height;
+      if (n.y > height) n.y = 0;
+
+      ctx.fillStyle = 'rgba(215, 243, 106, 0.45)';
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    if (introEl.parentNode && !introEl.classList.contains('is-dismissed')) {
+      animationId = window.requestAnimationFrame(renderNodes);
+    }
+  }
+
+  animationId = window.requestAnimationFrame(renderNodes);
+
+  // Precision Editorial Sequence Choreography
+  let startTime = 0;
+  const TOTAL_DURATION = 3200; // 3.2 seconds: punchy, sleek, elegant
+
+  function timelineProgress(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const elapsed = timestamp - startTime;
+    const p = Math.min(elapsed / TOTAL_DURATION, 1);
+
+    if (progressFill) progressFill.style.width = `${(p * 100).toFixed(1)}%`;
+
+    if (p < 1 && !introEl.classList.contains('is-dismissed')) {
+      window.requestAnimationFrame(timelineProgress);
+    }
+  }
+
+  window.requestAnimationFrame(timelineProgress);
+
+  // Beat 1 (0.2s): System badge appears
+  window.setTimeout(() => {
+    badge?.classList.add('is-visible');
+  }, 200);
+
+  // Beat 2 (0.6s): First word 'LAIJO' materializes with optical deblur
+  window.setTimeout(() => {
+    firstName?.classList.add('is-visible');
+  }, 600);
+
+  // Beat 3 (0.9s): Second word 'JOSE.' locks into place alongside it
+  window.setTimeout(() => {
+    lastName?.classList.add('is-visible');
+  }, 900);
+
+  // Beat 4 (1.3s): College & engineering status line lights up
+  window.setTimeout(() => {
+    if (badgeText) badgeText.textContent = 'ONLINE // READY';
+    subText?.classList.add('is-visible');
+  }, 1300);
+
+  // Beat 5 (2.5s): FLUID DISSOLVE & SEAMLESS REVEAL
+  // The intro overlay dissolves cleanly so LAIJO JOSE is already in place on the website!
+  window.setTimeout(() => {
+    introEl.classList.add('is-dismissed');
+    document.body.classList.remove('intro-active');
+    document.body.classList.add('intro-ready');
+
+    window.setTimeout(() => {
+      if (animationId) window.cancelAnimationFrame(animationId);
+      introEl.remove();
+    }, 800);
+  }, 2500);
+}
+
+initCinematicIntro();
