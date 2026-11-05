@@ -26,8 +26,8 @@
   <link rel="apple-touch-icon" href="/favicon.svg?v=2">
   <link rel="preload" href="/fonts/space-grotesk-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/css/styles.css?v=14">
-  <script type="module" src="/js/main.js?v=14"></script>
+  <link rel="stylesheet" href="/css/styles.css?v=15">
+  <script type="module" src="/js/main.js?v=15"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -42,6 +42,7 @@
     <symbol id="i-github" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
     <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></symbol>
     <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
     <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
     <symbol id="i-code" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></symbol>
     <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m6.08 9.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/><path d="m6.08 14.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"/></symbol>
@@ -134,6 +135,7 @@
             <a href="https://github.com/laijojose05-stack" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">&nearr;</span><span class="sr-only">(opens in a new tab)</span></a>
             <a href="https://www.linkedin.com/in/laijo-jose-96b60b3a8" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">&nearr;</span><span class="sr-only">(opens in a new tab)</span></a>
             <a href="mailto:laijojose05@gmail.com">Email</a>
+
           </div>
         </div>
         <div class="menu-block">
@@ -167,6 +169,20 @@
 
           <p class="hero__desc">I&rsquo;m a third-year Diploma in Computer Engineering student at AKM Polytechnic College, Kollam. I learn by building practical web projects and documenting the process honestly.</p>
 
+          <ul class="hero__meta" aria-label="Quick facts">
+            <li><span class="mono">Based in</span> Kollam, Kerala</li>
+            <li><span class="mono">Studying</span> Diploma in Computer Engineering</li>
+            <li><span class="mono">Graduating</span> 2027</li>
+          </ul>
+
+          <ul class="hero__stack" aria-label="Main technologies">
+            <li class="tech-badge">Python</li>
+            <li class="tech-badge">Flask</li>
+            <li class="tech-badge">Node.js</li>
+            <li class="tech-badge">MySQL</li>
+            <li class="tech-badge">Supabase</li>
+          </ul>
+
           <div class="hero__actions">
             <a class="button button--solid" href="#projects">
               View selected work
@@ -192,6 +208,11 @@
             </a>
           </div>
         </div>
+
+        <a class="hero__scroll" href="#about" aria-label="Scroll to About section">
+          <span class="mono">Scroll</span>
+          <span class="hero__scroll-line" aria-hidden="true"></span>
+        </a>
 
       </div>
     </section>
@@ -396,7 +417,7 @@
 
         <div class="contact-intro">
           <h2 class="contact-title" id="contact-title" data-reveal>Let&rsquo;s<br>connect<span class="accent">.</span></h2>
-          <p class="contact-intro__copy" data-reveal>Have a question, a learning opportunity, or a project idea? Reach out through email, GitHub, or LinkedIn.</p>
+          <p class="contact-intro__copy" data-reveal>Have a question, a learning opportunity, or a project idea? Reach out through phone, email, GitHub, or LinkedIn.</p>
         </div>
 
         <div class="contact-grid">
@@ -406,6 +427,15 @@
               <span class="contact-row__text">
                 <span class="mono">Email</span>
                 <span class="contact-row__value">laijojose05@gmail.com</span>
+              </span>
+              <svg class="icon contact-row__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"></use></svg>
+            </a>
+
+            <a class="contact-row" href="tel:+918590775834">
+              <span class="contact-row__icon" aria-hidden="true"><svg class="icon" focusable="false"><use href="#i-phone"></use></svg></span>
+              <span class="contact-row__text">
+                <span class="mono">Phone</span>
+                <span class="contact-row__value">+91 85907 75834</span>
               </span>
               <svg class="icon contact-row__arrow" aria-hidden="true" focusable="false"><use href="#i-arrow-up-right"></use></svg>
             </a>

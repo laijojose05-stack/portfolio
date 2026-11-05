@@ -4288,3 +4288,361 @@ body.intro-ready .hero__socials {
   height: 3px;
   box-shadow: 0 0 14px var(--accent);
 }
+
+/* --------------------------------------------------------------------------
+   Additional CSS-only Hover Polish
+   ------------------------------------------------------------------------ */
+@media (hover: hover) and (pointer: fine) {
+  .text-button,
+  .link-button {
+    display: inline-block;
+    transition: color 0.22s ease, border-color 0.22s ease, transform 0.22s ease;
+  }
+
+  .text-button:hover,
+  .link-button:hover {
+    transform: translateY(-2px);
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .section-title {
+    transition: color 0.25s ease, text-shadow 0.25s ease;
+  }
+
+  .section-title:hover {
+    color: var(--ink-strong);
+    text-shadow: 0 0 16px var(--accent-soft);
+  }
+
+  .hero__desc {
+    transition: color 0.25s ease;
+  }
+
+  .hero__desc:hover {
+    color: var(--ink);
+  }
+
+  .section-head__meta {
+    transition: color 0.22s ease;
+  }
+
+  .section-head__meta:hover {
+    color: var(--accent);
+  }
+
+  .skills-legend p {
+    transition: transform 0.22s ease, color 0.22s ease;
+  }
+
+  .skills-legend p:hover {
+    transform: translateY(-2px);
+    color: var(--ink-strong);
+  }
+
+  .menu-time {
+    transition: color 0.22s ease;
+  }
+
+  .menu-time:hover {
+    color: var(--accent);
+  }
+
+  .skill-card__name {
+    transition: color 0.22s ease;
+  }
+
+  .skill-card:hover .skill-card__name {
+    color: var(--accent);
+  }
+
+  .modal-links a,
+  .certificate-actions a {
+    display: inline-flex;
+    align-items: center;
+    transition: transform 0.22s ease, border-color 0.22s ease, color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+  }
+
+  .modal-links a:hover,
+  .certificate-actions a:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-soft);
+    box-shadow: 0 4px 12px var(--accent-soft);
+  }
+
+  /* Matching Light Theme adaptations */
+  [data-theme='light'] .text-button:hover,
+  [data-theme='light'] .link-button:hover {
+    color: var(--accent-strong);
+    border-color: var(--accent-strong);
+  }
+
+  [data-theme='light'] .section-head__meta:hover {
+    color: var(--accent-strong);
+  }
+
+  [data-theme='light'] .menu-time:hover {
+    color: var(--accent-strong);
+  }
+
+  [data-theme='light'] .skill-card:hover .skill-card__name {
+    color: var(--accent-strong);
+  }
+
+  [data-theme='light'] .modal-links a:hover,
+  [data-theme='light'] .certificate-actions a:hover {
+    border-color: var(--accent-strong);
+    color: var(--accent-strong);
+    background: var(--accent-soft);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-button:hover,
+  .link-button:hover,
+  .skills-legend p:hover,
+  .modal-links a:hover,
+  .certificate-actions a:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   Hero Extra Elements (.hero__meta, .hero__stack, .hero__scroll)
+   ========================================================================== */
+.hero__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.75rem, 2vw, 1.8rem);
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.25rem;
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: clamp(0.78rem, 1.1vw, 0.88rem);
+  line-height: 1.5;
+}
+
+.hero__meta li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.hero__meta .mono {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.hero__stack {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 clamp(1.4rem, 2.8vh, 2rem);
+  grid-column: 1 / -1;
+}
+
+.hero__scroll {
+  position: absolute;
+  right: clamp(1rem, 3vw, 2.5rem);
+  bottom: clamp(1.5rem, 3vh, 2.5rem);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--dim);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  z-index: 2;
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.hero__scroll:hover {
+  color: var(--accent);
+  transform: translateY(3px);
+}
+
+[data-theme='light'] .hero__scroll:hover {
+  color: var(--accent-strong);
+}
+
+.hero__scroll-line {
+  display: block;
+  width: 1px;
+  height: 44px;
+  background: var(--line-strong);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__scroll-line::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: var(--accent);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero__scroll-line::after {
+    animation: heroScrollCueDrop 2.2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  }
+}
+
+@keyframes heroScrollCueDrop {
+  0% {
+    top: -50%;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+@media (max-width: 639px) {
+  .hero__scroll {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   CHANGE 1: CSS-only Hover Polish
+   ========================================================================== */
+@media (hover: hover) and (pointer: fine) {
+  .text-button,
+  .link-button {
+    transition: color 0.22s ease, border-color 0.22s ease, text-decoration-color 0.22s ease;
+  }
+
+  .text-button:hover,
+  .link-button:hover {
+    color: var(--accent-strong);
+    border-color: transparent;
+    text-decoration-color: transparent;
+  }
+
+  .section-title {
+    transition: color 0.25s ease;
+  }
+
+  .section-title:hover {
+    color: var(--accent);
+  }
+
+  .hero__desc {
+    transition: color 0.25s ease;
+  }
+
+  .hero__desc:hover {
+    color: var(--ink-strong);
+  }
+
+  .skills-legend p {
+    transition: color 0.22s ease;
+  }
+
+  .skills-legend p:hover {
+    color: var(--ink-strong);
+  }
+
+  .section-head__meta {
+    transition: color 0.22s ease;
+  }
+
+  .section-head__meta:hover {
+    color: var(--accent);
+  }
+
+  .menu-time {
+    transition: color 0.22s ease;
+  }
+
+  .menu-time:hover {
+    color: var(--accent);
+  }
+
+  .skill-card__name {
+    transition: color 0.22s ease;
+  }
+
+  .skill-card:hover .skill-card__name {
+    color: var(--accent);
+  }
+
+  .modal-links a,
+  .modal-links button,
+  .certificate-actions a,
+  .certificate-actions button {
+    display: inline-flex;
+    align-items: center;
+    transition: transform 0.22s ease, border-color 0.22s ease, color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+  }
+
+  .modal-links a:hover,
+  .modal-links button:hover,
+  .certificate-actions a:hover,
+  .certificate-actions button:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Matching Light Theme versions under [data-theme='light'] using var(--accent-strong) */
+  [data-theme='light'] .text-button:hover,
+  [data-theme='light'] .link-button:hover {
+    color: var(--accent-strong);
+    border-color: transparent;
+    text-decoration-color: transparent;
+  }
+
+  [data-theme='light'] .section-title:hover {
+    color: var(--accent-strong);
+  }
+
+  [data-theme='light'] .section-head__meta:hover {
+    color: var(--accent-strong);
+  }
+
+  [data-theme='light'] .menu-time:hover {
+    color: var(--accent-strong);
+  }
+
+  [data-theme='light'] .skill-card:hover .skill-card__name {
+    color: var(--accent-strong);
+  }
+
+  [data-theme='light'] .modal-links a:hover,
+  [data-theme='light'] .modal-links button:hover,
+  [data-theme='light'] .certificate-actions a:hover,
+  [data-theme='light'] .certificate-actions button:hover {
+    border-color: var(--accent-strong);
+    color: var(--accent-strong);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-links a:hover,
+  .modal-links button:hover,
+  .certificate-actions a:hover,
+  .certificate-actions button:hover,
+  .hero__scroll:hover {
+    transform: none;
+  }
+}
