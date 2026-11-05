@@ -571,8 +571,10 @@ function initTypedRole() {
   const phrases = [
     'Student Developer',
     'Computer Engineering Student',
-    'Web Developer in training',
+    'final year',
     'Learning by building',
+    'open to work',
+    'quick learner',
   ];
 
   typed.textContent = phrases[0];
@@ -1273,7 +1275,7 @@ function initTheme() {
     // Update meta theme-color for mobile address bars
     const metaThemeColor = document.querySelector('meta[name="theme-color"]');
     if (metaThemeColor) {
-      metaThemeColor.setAttribute('content', theme === 'light' ? '#f5f4ee' : '#0b0d0c');
+      metaThemeColor.setAttribute('content', theme === 'light' ? '#f8f7fc' : '#0b0d0c');
     }
   }
 
@@ -1361,8 +1363,8 @@ function initCinematicIntro() {
     ctx.clearRect(0, 0, width, height);
 
     const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-    const lineColor = isLight ? '46, 125, 50' : '215, 243, 106';
-    const particleColor = isLight ? 'rgba(46, 125, 50, 0.35)' : 'rgba(215, 243, 106, 0.45)';
+    const lineColor = isLight ? '109, 155, 195' : '41, 98, 255';
+    const particleColor = isLight ? 'rgba(224, 109, 68, 0.55)' : 'rgba(204, 255, 0, 0.65)';
     const lineAlphaBase = isLight ? 0.16 : 0.12;
 
     // Draw connecting mesh lines
