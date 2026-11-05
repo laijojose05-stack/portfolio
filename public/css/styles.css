@@ -778,12 +778,72 @@ body.menu-open .site-header::after {
 .hero__line {
   display: inline-block;
   position: relative;
-  transition: color 0.25s ease, text-shadow 0.25s ease;
+  cursor: default;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+              color 0.3s ease,
+              text-shadow 0.35s ease,
+              letter-spacing 0.3s ease;
 }
 
-.hero__line:hover {
-  color: var(--accent);
-  text-shadow: 0 0 12px var(--accent-soft);
+/* Ambient gradient shimmer line beneath the active word */
+.hero__line::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-strong, #6d9bc3));
+  box-shadow: 0 0 12px var(--accent);
+  transition: width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero__line:hover {
+    color: var(--accent);
+    transform: translateY(-6px) scale(1.02);
+    letter-spacing: -0.035em;
+    text-shadow: 0 0 28px var(--accent-soft), 0 0 60px rgba(41, 98, 255, 0.35), 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .hero__line:hover::after {
+    width: 100%;
+  }
+
+  .hero__line:hover .accent {
+    text-shadow: 0 0 20px var(--accent), 0 0 35px var(--accent);
+    display: inline-block;
+    transform: scale(1.3) rotate(8deg);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), text-shadow 0.3s ease;
+  }
+
+  [data-theme='light'] .hero__line:hover {
+    color: var(--accent-strong);
+    text-shadow: 0 0 24px rgba(109, 155, 195, 0.4), 0 8px 24px rgba(109, 155, 195, 0.25);
+  }
+
+  [data-theme='light'] .hero__line:hover::after {
+    background: linear-gradient(90deg, var(--accent-strong), var(--accent));
+    box-shadow: 0 0 10px var(--accent-strong);
+  }
+
+  [data-theme='light'] .hero__line:hover .accent {
+    color: var(--accent-strong);
+    text-shadow: 0 0 16px var(--accent-strong);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__line:hover,
+  .hero__line:hover .accent {
+    transform: none;
+    letter-spacing: -0.06em;
+  }
+  .hero__line::after {
+    display: none;
+  }
 }
 
 .hero__line:nth-child(2) {
@@ -793,6 +853,7 @@ body.menu-open .site-header::after {
 .hero__line .accent {
   color: var(--accent);
   -webkit-text-stroke: 0;
+  transition: transform 0.25s ease, color 0.25s ease, text-shadow 0.25s ease;
 }
 
 .hero__role {
@@ -4643,6 +4704,122 @@ body.intro-ready .hero__socials {
   .certificate-actions a:hover,
   .certificate-actions button:hover,
   .hero__scroll:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   Extra Hover Polish for Cards, Badges, Brand, and Links
+   ========================================================================== */
+@media (hover: hover) and (pointer: fine) {
+  /* Hero tech stack badges micro-lift & glow */
+  .hero__stack .tech-badge {
+    transition: transform 0.22s ease, border-color 0.22s ease, color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+  }
+
+  .hero__stack .tech-badge:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-soft);
+    box-shadow: 0 4px 12px var(--accent-soft);
+  }
+
+  /* Quick facts in Hero highlight on hover */
+  .hero__meta li {
+    transition: color 0.22s ease, transform 0.22s ease;
+  }
+
+  .hero__meta li:hover {
+    color: var(--ink-strong);
+    transform: translateX(3px);
+  }
+
+  .hero__meta li:hover .mono {
+    color: var(--accent);
+  }
+
+  /* Fact items in About section lift and glow */
+  .fact {
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .fact:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: 0 6px 20px var(--accent-soft);
+  }
+
+  /* Skill cards subtle lift & card border glow */
+  .skill-card {
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+
+  .skill-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+    box-shadow: 0 6px 18px var(--accent-soft);
+  }
+
+  /* Footer Brand & Back to top hover enhancements */
+  .footer-brand {
+    display: inline-block;
+    transition: transform 0.22s ease, color 0.22s ease;
+  }
+
+  .footer-brand:hover {
+    color: var(--accent);
+    transform: translateX(3px);
+  }
+
+  .footer-top-link {
+    transition: color 0.22s ease, transform 0.22s ease;
+  }
+
+  .footer-top-link:hover {
+    color: var(--accent);
+    transform: translateY(-3px);
+  }
+
+  .footer-top-link:hover .icon {
+    transform: translateY(-2px);
+  }
+
+  /* Light Theme overrides for the extra hover rules */
+  [data-theme='light'] .hero__stack .tech-badge:hover {
+    border-color: var(--accent-strong);
+    color: var(--accent-strong);
+  }
+
+  [data-theme='light'] .hero__meta li:hover .mono {
+    color: var(--accent-strong);
+  }
+
+  [data-theme='light'] .fact:hover {
+    border-color: var(--accent-strong);
+  }
+
+  [data-theme='light'] .skill-card:hover {
+    border-color: var(--accent-strong);
+  }
+
+  [data-theme='light'] .footer-brand:hover {
+    color: var(--accent-strong);
+  }
+
+  [data-theme='light'] .footer-top-link:hover {
+    color: var(--accent-strong);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__stack .tech-badge:hover,
+  .hero__meta li:hover,
+  .fact:hover,
+  .skill-card:hover,
+  .footer-brand:hover,
+  .footer-top-link:hover,
+  .footer-top-link:hover .icon {
     transform: none;
   }
 }
