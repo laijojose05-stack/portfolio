@@ -3218,25 +3218,6 @@ a.contact-row:hover .contact-row__arrow {
   transform: scaleX(1);
 }
 
-/* ── Animated Section Dividers ── */
-.section {
-  position: relative;
-}
-.section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: var(--gutter);
-  right: var(--gutter);
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent) 20%, var(--cobalt) 50%, var(--accent) 80%, transparent);
-  transform: scaleX(0);
-  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.section.is-visible::before {
-  transform: scaleX(1);
-}
-
 /* ── Section Number Counter Animation ── */
 .section-head__meta {
   position: relative;
@@ -3516,7 +3497,6 @@ a.contact-row:hover .contact-row__arrow {
 
 /* ── Reduced Motion: disable new animations ── */
 @media (prefers-reduced-motion: reduce) {
-  .section::before,
   .education-card::before,
   .footer-brand::after,
   .site-footer::before,
