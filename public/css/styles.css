@@ -1525,10 +1525,10 @@ body.menu-open .site-header::after {
 .skill-card__icon--mysql { --icon: url('/images/icons/mysql.svg?v=4'); }
 .skill-card__icon--supabase { --icon: url('/images/icons/supabase.svg?v=4'); }
 .skill-card__icon--bootstrap { --icon: url('/images/icons/bootstrap.svg?v=4'); }
-.skill-card__icon--git { --icon: url('/images/icons/git.svg?v=5'); }
-.skill-card__icon--github { --icon: url('/images/icons/github.svg?v=5'); }
-.skill-card__icon--vscode { --icon: url('/images/icons/vscode.svg?v=5'); }
-.skill-card__icon--xampp { --icon: url('/images/icons/xampp.svg?v=5'); }
+.skill-card__icon--git { --icon: url('/images/icons/git.svg?v=6'); }
+.skill-card__icon--github { --icon: url('/images/icons/github.svg?v=6'); }
+.skill-card__icon--vscode { --icon: url('/images/icons/vscode.svg?v=6'); }
+.skill-card__icon--xampp { --icon: url('/images/icons/xampp.svg?v=6'); }
 
 [data-theme='light'] .skill-card__icon--github { filter: brightness(0.12); }
 
