@@ -1524,7 +1524,9 @@ body.menu-open .site-header::after {
 .skill-card__icon--express { --icon: url('/images/icons/express.svg?v=4'); }
 .skill-card__icon--mysql { --icon: url('/images/icons/mysql.svg?v=4'); }
 .skill-card__icon--supabase { --icon: url('/images/icons/supabase.svg?v=4'); }
+.skill-card__icon--mongodb { --icon: url('/images/icons/mongodb.svg?v=1'); }
 .skill-card__icon--bootstrap { --icon: url('/images/icons/bootstrap.svg?v=4'); }
+.skill-card__icon--react { --icon: url('/images/icons/react.svg?v=1'); }
 .skill-card__icon--git { --icon: url('/images/icons/git.svg?v=6'); }
 .skill-card__icon--github { --icon: url('/images/icons/github.svg?v=6'); }
 .skill-card__icon--vscode { --icon: url('/images/icons/vscode.svg?v=6'); }
@@ -3158,6 +3160,8 @@ a.contact-row:hover .contact-row__arrow {
   .skill-grid .skill-card:nth-child(15) { animation-delay: 0.56s; }
   .skill-grid .skill-card:nth-child(16) { animation-delay: 0.60s; }
   .skill-grid .skill-card:nth-child(17) { animation-delay: 0.64s; }
+  .skill-grid .skill-card:nth-child(18) { animation-delay: 0.68s; }
+  .skill-grid .skill-card:nth-child(19) { animation-delay: 0.72s; }
 
   .fact-grid .fact:nth-child(2) { animation-delay: 0.06s; }
   .fact-grid .fact:nth-child(3) { animation-delay: 0.12s; }
