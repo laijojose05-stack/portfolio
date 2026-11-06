@@ -889,25 +889,7 @@ body.menu-open .site-header::after {
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), text-shadow 0.3s ease;
   }
 
-  [data-theme='light'] .hero__line {
-    -webkit-text-stroke: 1.2px rgba(10, 14, 20, 0.35);
-  }
 
-  [data-theme='light'] .hero__line:hover {
-    -webkit-text-stroke: 1.2px var(--accent-strong);
-    color: var(--accent-strong);
-    text-shadow: 0 0 24px rgba(109, 155, 195, 0.4), 0 8px 24px rgba(109, 155, 195, 0.25);
-  }
-
-  [data-theme='light'] .hero__line:hover::after {
-    background: linear-gradient(90deg, var(--accent-strong), var(--accent));
-    box-shadow: 0 0 10px var(--accent-strong);
-  }
-
-  [data-theme='light'] .hero__line:hover .accent {
-    color: var(--accent-strong);
-    text-shadow: 0 0 16px var(--accent-strong);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -4150,6 +4132,61 @@ a.contact-row:hover .contact-row__arrow {
 
 [data-theme='light'] .hero::after {
   background: radial-gradient(circle, rgba(224, 109, 68, 0.08), transparent 64%);
+}
+
+[data-theme='light'] .hero__title {
+  color: #0f0c1c;
+}
+
+[data-theme='light'] .hero__line {
+  color: #0f0c1c;
+  -webkit-text-fill-color: #0f0c1c;
+  -webkit-text-stroke: 1.2px #0f0c1c;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-theme='light'] .hero__line {
+    background-image: linear-gradient(
+      120deg,
+      #0f0c1c 0%,
+      #0f0c1c 35%,
+      #c25229 50%,
+      #0f0c1c 65%,
+      #0f0c1c 100%
+    );
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 1.2px #0f0c1c;
+  }
+}
+
+[data-theme='light'] .hero__line .accent {
+  color: var(--accent);
+  -webkit-text-fill-color: var(--accent);
+  -webkit-text-stroke: 1.2px var(--accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-theme='light'] .hero__line:hover {
+    color: var(--accent-strong);
+    -webkit-text-fill-color: var(--accent-strong);
+    -webkit-text-stroke: 1.2px var(--accent-strong);
+    text-shadow: 0 0 24px rgba(224, 109, 68, 0.35);
+  }
+
+  [data-theme='light'] .hero__line:hover::after {
+    background: linear-gradient(90deg, var(--accent-strong), var(--accent));
+    box-shadow: 0 0 10px var(--accent-strong);
+  }
+
+  [data-theme='light'] .hero__line:hover .accent {
+    color: var(--accent-strong);
+    -webkit-text-fill-color: var(--accent-strong);
+    -webkit-text-stroke: 1.2px var(--accent-strong);
+    text-shadow: 0 0 16px var(--accent-strong);
+  }
 }
 
 [data-theme='light'] .hero__eyebrow {
