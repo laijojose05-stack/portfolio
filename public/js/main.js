@@ -1295,6 +1295,52 @@ function initHeroScrollParallax() {
 /* --------------------------------------------------------------------------
  * Ambient Cursor Spotlight & Subtle Dynamic Parallax
  * ------------------------------------------------------------------------ */
+
+/* --------------------------------------------------------------------------
+ * Mobile Hero Touch & Orientation 3D Tilt
+ * ------------------------------------------------------------------------ */
+function initMobileHeroInteractions() {
+  const isTouch = window.matchMedia('(pointer: coarse)').matches;
+  if (!isTouch || reduceMotion) return;
+
+  const heroTitle = document.querySelector('.hero__title');
+  const hero = document.getElementById('home');
+  if (!heroTitle || !hero) return;
+
+  // Touch drag 3D response
+  hero.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0) {
+      const touch = e.touches[0];
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      const tiltX = ((touch.clientX - centerX) / centerX) * 8;
+      const tiltY = ((touch.clientY - centerY) / centerY) * 6;
+      heroTitle.style.transform = `perspective(600px) translate3d(${tiltX.toFixed(1)}px, ${tiltY.toFixed(1)}px, 0) rotateX(${(-tiltY).toFixed(1)}deg) rotateY(${tiltX.toFixed(1)}deg)`;
+    }
+  }, { passive: true });
+
+  hero.addEventListener('touchend', () => {
+    heroTitle.style.transition = 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)';
+    heroTitle.style.transform = 'none';
+    setTimeout(() => {
+      heroTitle.style.transition = '';
+    }, 500);
+  }, { passive: true });
+
+  // Mobile subtle gyro tilt if device supports orientation
+  if (window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission !== 'function') {
+    window.addEventListener('deviceorientation', (e) => {
+      if (window.scrollY > window.innerHeight) return;
+      if (e.gamma !== null && e.beta !== null) {
+        // Clamp gamma (-30 to 30) and beta (-30 to 30)
+        const tiltX = Math.max(-8, Math.min(8, (e.gamma / 30) * 8));
+        const tiltY = Math.max(-6, Math.min(6, ((e.beta - 45) / 30) * 6));
+        heroTitle.style.transform = `perspective(600px) translate3d(${tiltX.toFixed(1)}px, ${tiltY.toFixed(1)}px, 0) rotateX(${(-tiltY).toFixed(1)}deg) rotateY(${tiltX.toFixed(1)}deg)`;
+      }
+    }, { passive: true });
+  }
+}
+
 function initAmbientCursor() {
   const isFinePointer = window.matchMedia('(pointer: fine)').matches;
   if (!isFinePointer || reduceMotion) return;
@@ -1431,7 +1477,7 @@ function initStatCountUp() {
         }
       });
     },
-    { threshold: 0.5 }
+    { threshold: 0.2, rootMargin: '0px 0px -40px 0px' }
   );
   
   statNumbers.forEach((el) => observer.observe(el));
@@ -1501,6 +1547,7 @@ initStatCountUp();
 initSkillCardTilt();
 initSectionParallax();
 initAmbientCursor();
+initMobileHeroInteractions();
 
 
 /* --------------------------------------------------------------------------

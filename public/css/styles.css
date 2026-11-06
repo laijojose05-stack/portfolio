@@ -5525,3 +5525,48 @@ body.intro-ready .hero__socials {
     transform: translateY(-3px);
   }
 }
+
+/* --------------------------------------------------------------------------
+ * Mobile Touch & Display Enhancements
+ * ------------------------------------------------------------------------ */
+@media (max-width: 600px) {
+  .hero__line {
+    -webkit-text-stroke: 0.95px rgba(232, 236, 242, 0.5);
+  }
+  [data-theme='light'] .hero__line {
+    -webkit-text-stroke: 0.95px #0f0c1c;
+  }
+}
+
+/* Touch feedback for mobile devices */
+@media (hover: none) and (pointer: coarse) {
+  .hero__line:active {
+    color: var(--accent);
+    -webkit-text-stroke: 1px var(--accent);
+    transform: scale(1.03);
+    text-shadow: 0 0 16px var(--accent-soft);
+  }
+
+  [data-theme='light'] .hero__line:active {
+    color: var(--accent-strong);
+    -webkit-text-fill-color: var(--accent-strong);
+    -webkit-text-stroke: 1px var(--accent-strong);
+    text-shadow: 0 0 14px rgba(224, 109, 68, 0.35);
+  }
+
+  .skill-card:active {
+    transform: scale(0.96);
+    border-color: var(--accent);
+    box-shadow: 0 0 14px var(--accent-soft);
+  }
+
+  .stat-box:active {
+    transform: scale(0.98);
+    border-color: var(--accent);
+  }
+
+  .contact-row:active {
+    transform: translateX(4px);
+    border-color: var(--accent);
+  }
+}
