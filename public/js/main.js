@@ -292,7 +292,7 @@ function renderModalContent(project) {
     }
     if (githubUrl) {
       const github = document.createElement('a');
-      github.className = 'button button--outline';
+      github.className = demoUrl ? 'button button--outline' : 'button button--solid';
       github.href = githubUrl;
       github.target = '_blank';
       github.rel = 'noopener noreferrer';

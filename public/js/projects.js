@@ -20,7 +20,7 @@ export const projects = [
     technologies: ['PHP', 'MySQL', 'HTML', 'CSS', 'JavaScript'],
     filters: ['php', 'mysql'],
     links: {
-      github: null,
+      github: 'https://github.com/laijojose05-stack/mediconnect',
       demo: null,
     },
     details: {
@@ -84,7 +84,7 @@ export const projects = [
     technologies: ['Python', 'Flask', 'MySQL', 'HTML', 'CSS', 'JavaScript'],
     filters: ['python', 'mysql'],
     links: {
-      github: null,
+      github: 'https://github.com/laijojose05-stack/openlearn',
       demo: null,
     },
     details: {
@@ -150,7 +150,7 @@ export const projects = [
     technologies: ['Node.js', 'Supabase', 'HTML', 'CSS', 'JavaScript'],
     filters: ['nodejs', 'supabase'],
     links: {
-      github: null,
+      github: 'https://github.com/laijojose05-stack/seafile',
       demo: null,
     },
     details: {
@@ -202,6 +202,71 @@ export const projects = [
         'Storage usage indicators.',
       ],
       note: 'Storage limits, availability, and access depend on the Supabase project configuration. SeaFile does not claim unlimited storage, end-to-end encryption, or guaranteed availability.',
+    },
+  },
+  {
+    id: 'portfolio',
+    title: 'Developer Portfolio',
+    category: 'Personal Portfolio & Web Architecture',
+    summary:
+      'A responsive, high-performance developer portfolio built with semantic HTML, modern CSS design tokens, vanilla JavaScript, and an Express server.',
+    thumbnail: '/images/project-portfolio.png',
+    thumbnailAlt: 'Screenshot of the Laijo Jose developer portfolio website.',
+    thumbnailWidth: 1920,
+    thumbnailHeight: 1080,
+    technologies: ['Node.js', 'Express', 'JavaScript', 'HTML', 'CSS'],
+    filters: ['nodejs'],
+    links: {
+      github: 'https://github.com/laijojose05-stack/portfolio',
+      demo: null,
+    },
+    details: {
+      overview:
+        'This portfolio website is a personal showcase designed and developed from scratch to document learning milestones, technical skills, and practical engineering projects. It emphasizes accessibility, responsive editorial typography, fluid animations, and production deployment.',
+      problem:
+        'Traditional student portfolios often rely on heavy third-party site builders or cookie-cutter templates that lack personal identity, perform slowly on mobile devices, and hide the underlying code. Building a custom portfolio allows full control over design systems, performance budgets, and code architecture.',
+      objectives: [
+        'Build a lightweight, production-grade portfolio without heavy frontend frameworks.',
+        'Implement an accessible design system with WCAG-compliant color contrast in both dark and light themes.',
+        'Deliver smooth, accessible animations respecting reduced-motion user preferences.',
+        'Create interactive modals, live filtering, and project case studies with clean DOM manipulation.',
+        'Deploy with automated CI/CD pipelines to Vercel and maintain version control with Git and GitHub.',
+      ],
+      features: [
+        'Interactive project showcase with technology filtering and accessible dialog case studies.',
+        'Dual-theme engine supporting system preferences with manual dark/light theme switching.',
+        'Editorial typography with custom Space Grotesk and JetBrains Mono variable fonts.',
+        'High-performance canvas particle field, scroll-driven parallax, and 3D pointer tilt interactions.',
+        'Validating contact form with server-side processing and rate limiting.',
+        'Fully responsive mobile layouts with tailored touch feedback and device orientation support.',
+      ],
+      workflow: [
+        'The visitor arrives and is greeted with an editorial hero section and animated status badges.',
+        'The user explores selected projects, filtering by stack or opening full modal case studies.',
+        'The theme switcher dynamically flips color tokens, meta tags, and contrast borders.',
+        'An Express server handles security headers, contact rate limits, and email dispatch.',
+        'Code changes push to GitHub and trigger instant automated builds on Vercel.',
+      ],
+      technologies: [
+        { name: 'Node.js & Express', purpose: 'Server-side runtime, contact rate limiting, and API routing.' },
+        { name: 'Vanilla JavaScript', purpose: 'Filter logic, modal dialogs, theme engine, and canvas effects.' },
+        { name: 'Modern CSS', purpose: 'Custom design tokens, fluid typography, flex/grid, and keyframe animations.' },
+        { name: 'Semantic HTML5', purpose: 'Accessible markup, ARIA roles, and SEO meta tags.' },
+        { name: 'Git & GitHub', purpose: 'Version control and commit history.' },
+        { name: 'Vercel', purpose: 'Edge hosting with continuous deployment and custom caching headers.' },
+      ],
+      learnings: [
+        'Designing a cohesive typographic system and fluid layout with clamp() and CSS custom properties.',
+        'Building accessible modal dialogs with focus trapping and ESC key management.',
+        'Optimizing canvas rendering loops with requestAnimationFrame and DPR awareness.',
+        'Structuring multi-step Git workflows and diagnosing live production deployments on Vercel.',
+      ],
+      future: [
+        'Interactive code playgrounds for live demos.',
+        'Technical blog section documenting programming concepts and project challenges.',
+        'Lighthouse performance score monitoring and automated image optimization.',
+      ],
+      note: 'This live website itself serves as the working demo. The complete source code is public and actively maintained on GitHub.',
     },
   },
 ];
