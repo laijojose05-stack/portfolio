@@ -814,7 +814,7 @@ body.menu-open .site-header::after {
   display: inline-block;
   position: relative;
   cursor: default;
-  -webkit-text-stroke: 1.2px rgba(232, 236, 242, 0.5);
+  -webkit-text-stroke: 1.2px var(--ink-strong);
   paint-order: stroke fill;
   transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
               color 0.3s ease,
@@ -827,11 +827,11 @@ body.menu-open .site-header::after {
   .hero__line {
     background-image: linear-gradient(
       120deg,
-      rgba(255, 255, 255, 0.96) 0%,
-      rgba(255, 255, 255, 0.96) 35%,
+      var(--ink-strong) 0%,
+      var(--ink-strong) 35%,
       var(--accent) 50%,
-      rgba(255, 255, 255, 0.96) 65%,
-      rgba(255, 255, 255, 0.96) 100%
+      var(--ink-strong) 65%,
+      var(--ink-strong) 100%
     );
     background-size: 250% 100%;
     -webkit-background-clip: text;
@@ -4135,13 +4135,13 @@ a.contact-row:hover .contact-row__arrow {
 }
 
 [data-theme='light'] .hero__title {
-  color: #0f0c1c;
+  color: #0f0c1c !important;
 }
 
 [data-theme='light'] .hero__line {
-  color: #0f0c1c;
-  -webkit-text-fill-color: #0f0c1c;
-  -webkit-text-stroke: 1.2px #0f0c1c;
+  color: #0f0c1c !important;
+  -webkit-text-fill-color: #0f0c1c !important;
+  -webkit-text-stroke: 1.2px #0f0c1c !important;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -4150,15 +4150,15 @@ a.contact-row:hover .contact-row__arrow {
       120deg,
       #0f0c1c 0%,
       #0f0c1c 35%,
-      #c25229 50%,
+      #d9653b 50%,
       #0f0c1c 65%,
       #0f0c1c 100%
-    );
-    background-size: 250% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-text-stroke: 1.2px #0f0c1c;
+    ) !important;
+    background-size: 250% 100% !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    -webkit-text-stroke: 1.2px #0f0c1c !important;
   }
 }
 
@@ -5531,10 +5531,11 @@ body.intro-ready .hero__socials {
  * ------------------------------------------------------------------------ */
 @media (max-width: 600px) {
   .hero__line {
-    -webkit-text-stroke: 0.95px rgba(232, 236, 242, 0.5);
+    -webkit-text-stroke: 1px var(--ink-strong);
   }
   [data-theme='light'] .hero__line {
-    -webkit-text-stroke: 0.95px #0f0c1c;
+    color: #0f0c1c !important;
+    -webkit-text-stroke: 1px #0f0c1c !important;
   }
 }
 
