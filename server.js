@@ -7,7 +7,7 @@ const express = require('express');
 const { validateContact, deliverContactEmail } = require('./lib/contact');
 
 const app = express();
-const PORT = Number(process.env.PORT) || 3000;
+const PORT = Number(process.env.PORT) || 3001;
 const PUBLIC_DIR = path.join(__dirname, 'public');
 
 app.disable('x-powered-by');

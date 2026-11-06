@@ -1225,13 +1225,15 @@ function initAmbientCursor() {
     root.style.setProperty('--mouse-x', `${mouseX.toFixed(1)}px`);
     root.style.setProperty('--mouse-y', `${mouseY.toFixed(1)}px`);
 
-    // Subtle 3D parallax on hero title when cursor is in the hero section
+    // 3D parallax on hero title when cursor moves across the viewport
     if (heroTitle && window.scrollY < window.innerHeight) {
       const centerX = window.innerWidth / 2;
       const centerY = window.innerHeight / 2;
-      const tiltX = ((mouseX - centerX) / centerX) * 5; // max 5px tilt
-      const tiltY = ((mouseY - centerY) / centerY) * 3;
-      heroTitle.style.transform = `translate3d(${tiltX.toFixed(2)}px, ${tiltY.toFixed(2)}px, 0)`;
+      const tiltX = ((mouseX - centerX) / centerX) * 14;
+      const tiltY = ((mouseY - centerY) / centerY) * 8;
+      const rotY = ((mouseX - centerX) / centerX) * 4;
+      const rotX = -((mouseY - centerY) / centerY) * 3;
+      heroTitle.style.transform = `perspective(800px) translate3d(${tiltX.toFixed(2)}px, ${tiltY.toFixed(2)}px, 0) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
     }
 
     if (Math.abs(targetX - mouseX) > 0.2 || Math.abs(targetY - mouseY) > 0.2) {
