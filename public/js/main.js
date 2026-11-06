@@ -1163,6 +1163,133 @@ initReveal();
 initContactForm();
 initTypedRole();
 initLocalClock();
+initHeroParticles();
+initHeroScrollParallax();
+
+
+/* --------------------------------------------------------------------------
+ * Hero Floating Particles Canvas
+ * ------------------------------------------------------------------------ */
+function initHeroParticles() {
+  const canvas = document.getElementById('hero-particles');
+  if (!canvas || reduceMotion) return;
+
+  const ctx = canvas.getContext('2d');
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  let width, height;
+  const PARTICLE_COUNT = 50;
+  const particles = [];
+
+  function resize() {
+    const hero = canvas.closest('.hero');
+    if (!hero) return;
+    width = hero.offsetWidth;
+    height = hero.offsetHeight;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function createParticle(randomY) {
+    return {
+      x: Math.random() * (width || window.innerWidth),
+      y: randomY ? Math.random() * (height || window.innerHeight) : (height || window.innerHeight) + Math.random() * 40,
+      radius: Math.random() * 2.2 + 0.6,
+      speedY: -(Math.random() * 0.35 + 0.12),
+      swayAmplitude: Math.random() * 0.6 + 0.2,
+      swaySpeed: Math.random() * 0.008 + 0.003,
+      swayOffset: Math.random() * Math.PI * 2,
+      opacity: Math.random() * 0.5 + 0.15,
+    };
+  }
+
+  resize();
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push(createParticle(true));
+  }
+
+  let animId = null;
+  function render() {
+    ctx.clearRect(0, 0, width, height);
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    const now = performance.now();
+
+    particles.forEach((p, i) => {
+      p.y += p.speedY;
+      p.x += Math.sin(now * p.swaySpeed + p.swayOffset) * p.swayAmplitude;
+
+      if (p.y < -10) {
+        particles[i] = createParticle(false);
+        return;
+      }
+
+      const color = isLight ? `rgba(224, 109, 68, ${p.opacity})` : `rgba(204, 255, 0, ${p.opacity})`;
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    animId = requestAnimationFrame(render);
+  }
+
+  animId = requestAnimationFrame(render);
+  window.addEventListener('resize', resize);
+
+  const heroSection = canvas.closest('.hero');
+  if (heroSection && 'IntersectionObserver' in window) {
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !animId) {
+          animId = requestAnimationFrame(render);
+        } else if (!entry.isIntersecting && animId) {
+          cancelAnimationFrame(animId);
+          animId = null;
+        }
+      },
+      { threshold: 0 }
+    );
+    obs.observe(heroSection);
+  }
+}
+
+/* --------------------------------------------------------------------------
+ * Hero Scroll Fade-Out Parallax
+ * ------------------------------------------------------------------------ */
+function initHeroScrollParallax() {
+  if (reduceMotion) return;
+
+  const heroCopy = document.querySelector('.hero__copy');
+  const hero = document.querySelector('.hero');
+  if (!heroCopy || !hero) return;
+
+  let ticking = false;
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const heroRect = hero.getBoundingClientRect();
+      const heroHeight = heroRect.height;
+      const scrolled = -heroRect.top;
+
+      if (scrolled < 0 || scrolled > heroHeight) {
+        ticking = false;
+        return;
+      }
+
+      const progress = Math.max(0, Math.min((scrolled - heroHeight * 0.2) / (heroHeight * 0.6), 1));
+      const opacity = 1 - progress;
+      const translateY = -progress * 60;
+
+      heroCopy.style.opacity = opacity.toFixed(3);
+      heroCopy.style.transform = `translateY(${translateY.toFixed(1)}px)`;
+      ticking = false;
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
 
 
 /* --------------------------------------------------------------------------
@@ -1244,6 +1371,135 @@ function initAmbientCursor() {
   }
 }
 
+/* --------------------------------------------------------------------------
+ * Section Visibility Observer — adds 'is-visible' class to sections
+ * ------------------------------------------------------------------------ */
+function initSectionObserver() {
+  if (typeof IntersectionObserver === 'undefined') return;
+  
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+  );
+  
+  sections.forEach((section) => observer.observe(section));
+}
+
+/* --------------------------------------------------------------------------
+ * Stat Number Count-Up Animation
+ * ------------------------------------------------------------------------ */
+function initStatCountUp() {
+  const statNumbers = document.querySelectorAll('.stat-accent');
+  if (!statNumbers.length || reduceMotion) return;
+  
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !entry.target.dataset.counted) {
+          entry.target.dataset.counted = 'true';
+          const finalText = entry.target.textContent;
+          const finalNum = parseInt(finalText, 10);
+          
+          if (isNaN(finalNum)) return;
+          
+          const duration = 1200;
+          const startTime = performance.now();
+          
+          function animate(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(eased * finalNum);
+            entry.target.textContent = String(current);
+            
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            } else {
+              entry.target.textContent = finalText;
+            }
+          }
+          
+          requestAnimationFrame(animate);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+  
+  statNumbers.forEach((el) => observer.observe(el));
+}
+
+/* --------------------------------------------------------------------------
+ * Skill Card 3D Tilt on Hover
+ * ------------------------------------------------------------------------ */
+function initSkillCardTilt() {
+  const isFinePointer = window.matchMedia('(pointer: fine)').matches;
+  if (!isFinePointer || reduceMotion) return;
+  
+  const cards = document.querySelectorAll('.skill-card');
+  
+  cards.forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      const rotateX = y * -12;
+      const rotateY = x * 12;
+      card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px) scale(1.03)`;
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+}
+
+/* --------------------------------------------------------------------------
+ * Smooth Parallax for Section Titles on Scroll
+ * ------------------------------------------------------------------------ */
+function initSectionParallax() {
+  if (reduceMotion) return;
+  
+  const titles = document.querySelectorAll('.section-title, .about-title, .work-title, .contact-title');
+  if (!titles.length) return;
+  
+  let ticking = false;
+  
+  function updateParallax() {
+    const scrollY = window.scrollY;
+    const vh = window.innerHeight;
+    
+    titles.forEach((title) => {
+      const rect = title.getBoundingClientRect();
+      const centerY = rect.top + rect.height / 2;
+      const offset = (centerY - vh / 2) / vh;
+      const translateY = offset * -15;
+      title.style.transform = `translateY(${translateY.toFixed(2)}px)`;
+    });
+    
+    ticking = false;
+  }
+  
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(updateParallax);
+    }
+  }, { passive: true });
+}
+
+initSectionObserver();
+initStatCountUp();
+initSkillCardTilt();
+initSectionParallax();
 initAmbientCursor();
 
 
