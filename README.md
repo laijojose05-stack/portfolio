@@ -414,4 +414,4 @@ Confirm the file exists inside `public/` and that the path uses a leading slash 
 - GitHub: [github.com/laijojose05-stack](https://github.com/laijojose05-stack)
 - LinkedIn: [linkedin.com/in/laijo-jose-96b60b3a8](https://www.linkedin.com/in/laijo-jose-96b60b3a8)
 - Location: Kollam, Kerala, India
-"# portfolio" 
+
