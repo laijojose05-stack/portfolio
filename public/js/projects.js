@@ -205,6 +205,71 @@ export const projects = [
     },
   },
   {
+    id: 'chatin',
+    title: 'ChatIn',
+    category: 'Real-Time Messaging & Team Workspace',
+    summary:
+      'A full-featured real-time messaging application and team workspace with bidirectional WebSocket chat, multi-channel group hubs, anti-spam security, and master-detail settings.',
+    thumbnail: '/images/project-chatin.png',
+    thumbnailAlt: 'Screenshot of the ChatIn real-time messaging platform.',
+    thumbnailWidth: 1920,
+    thumbnailHeight: 1080,
+    technologies: ['Node.js', 'Express', 'Socket.IO', 'MongoDB', 'EJS', 'JavaScript', 'Bootstrap'],
+    filters: ['nodejs', 'mongodb'],
+    links: {
+      github: 'https://github.com/laijojose05-stack/ChatIn',
+      demo: null,
+    },
+    details: {
+      overview:
+        'ChatIn is a full-featured real-time messaging web application and team workspace platform built with Node.js, Express, Socket.IO, and MongoDB Atlas. It features sub-50ms bidirectional message exchange, multi-participant group channels, direct messaging, typing indicators, delivery checkmarks, and customizable master-detail settings.',
+      problem:
+        'Modern team communication requires immediate feedback, reliable presence detection, and robust data persistence without heavy commercial subscriptions. Building a custom real-time chat application addresses architectural challenges around bidirectional WebSocket event loops, multi-room state isolation, data sanitization, and defensive rate limiting.',
+      objectives: [
+        'Implement bidirectional, low-latency WebSocket communication using Socket.IO with fallback long-polling.',
+        'Architect relational group channels and 1-to-1 direct messaging threads backed by MongoDB Atlas.',
+        'Create live presence tracking, typing indicators, and visual message delivery/read receipts.',
+        'Design a customizable master-detail workspace settings suite with theme switching and synthesized Web Audio alerts.',
+        'Enforce defense-in-depth security with tiered Express rate limiters, honeypot traps, and XSS payload sanitization.',
+      ],
+      features: [
+        'Real-time 1-to-1 direct messages and dynamic group channels with participant management.',
+        'Live delivery checkmarks (sent, delivered, read) and debounced typing indicator broadcast.',
+        'Synthesized 2-tone audio chime synthesized via Web Audio API without external audio file overhead.',
+        'Master-detail workspace settings suite with Obsidian Slate / Crisp Light themes and 5 accent color pickers.',
+        'Multi-layered security with submission speed traps, honeypot fields, and tiered API rate limiters.',
+        'Mobile-optimized UI with gesture-based swipe-to-reply and context option action sheets.',
+      ],
+      workflow: [
+        'Users authenticate through secure JWT cookie sessions with bcrypt password hashing and strength validation.',
+        'The client initializes a persistent WebSocket connection to the Socket.IO cluster, subscribing to active room channels.',
+        'Incoming messages are sanitized, validated against rate limiters, persisted to MongoDB Atlas, and broadcast to room peers.',
+        'Presence heartbeats and typing events update user status indicators across the sidebar in real time.',
+        'Preferences like dark/light theme, accent color, and audio bells persist locally for an immediate, customized session.',
+      ],
+      technologies: [
+        { name: 'Node.js & Express', purpose: 'Server runtime, RESTful routing, and JWT authentication.' },
+        { name: 'Socket.IO', purpose: 'Low-latency bidirectional WebSocket event pipeline and room management.' },
+        { name: 'MongoDB Atlas & Mongoose', purpose: 'Document database for users, channels, direct threads, and message history.' },
+        { name: 'EJS & Bootstrap 5', purpose: 'Server-rendered responsive views and modern dashboard layouts.' },
+        { name: 'Helmet & Express Rate Limit', purpose: 'HTTP security headers, brute-force mitigation, and socket flood prevention.' },
+        { name: 'Web Audio API', purpose: 'Zero-asset synthesized notification bells for incoming messages.' },
+      ],
+      learnings: [
+        'Managing state synchronization between WebSocket rooms and database persistence pipelines.',
+        'Designing anti-spam defenses including honeypots, submission velocity checks, and tiered rate limiting.',
+        'Implementing optimistic UI updates for chat messages alongside delivery receipt confirmations.',
+        'Structuring master-detail settings architecture with live theme switching and CSS custom property overrides.',
+      ],
+      future: [
+        'End-to-end message encryption with client-side key generation.',
+        'WebRTC voice and video calling between channel participants.',
+        'Full-text fuzzy search across archived group conversations.',
+      ],
+      note: 'ChatIn is actively maintained on GitHub. Real-time message exchange and presence updates require a running Socket.IO server and active MongoDB Atlas cluster connection.',
+    },
+  },
+  {
     id: 'portfolio',
     title: 'Developer Portfolio',
     category: 'Personal Portfolio & Web Architecture',
@@ -290,8 +355,10 @@ export const projects = [
 export const certificates = [
   {
     title: 'AI & Machine Learning Internship',
+    category: 'INTERNSHIP',
     issuer: 'SIMS AI Technologies LLP',
-    date: 'June 2026',
+    date: 'Jun 2026',
+    skills: ['Artificial Intelligence', 'Machine Learning', 'Python', 'Neural Networks'],
     summary:
       'A 30-day internship on artificial intelligence and machine learning completed through SIMS AI Technologies LLP, covering the fundamentals of AI and ML with applied exercises.',
     image: '/images/certificate-sims-ai-internship.jpg',
@@ -300,8 +367,10 @@ export const certificates = [
   },
   {
     title: 'AI & Machine Learning Workshop',
+    category: 'WORKSHOP',
     issuer: 'IPCS Global',
-    date: null,
+    date: 'Oct 2025',
+    skills: ['AI & ML', 'Deep Learning', 'Computer Vision'],
     summary:
       'A workshop on artificial intelligence and machine learning conducted by IPCS Global for the Computer Engineering department at AKM Polytechnic College.',
     image: '/images/certificate-ipcs-ai-workshop.jpg',
@@ -310,8 +379,10 @@ export const certificates = [
   },
   {
     title: 'Robotics Internship',
+    category: 'ROBOTICS',
     issuer: 'Logiprompt Techno Solutions',
-    date: 'January 2026',
+    date: 'Jan 2026',
+    skills: ['Robotics', 'Embedded Systems', 'Automation', 'Sensors'],
     summary:
       'A five-day internship at Logiprompt Techno Solutions with robotics training, completed as part of the academic curriculum in January 2026.',
     image: '/images/certificate-logiprompt-internship.jpg',

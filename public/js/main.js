@@ -421,17 +421,16 @@ function renderCertificates() {
     const item = element('article', 'certificate-card');
     const titleId = `certificate-title-${index}`;
     const image = typeof certificate.image === 'string' && certificate.image.startsWith('/') ? certificate.image : null;
-    const url = safeExternalUrl(certificate.url);
 
     item.setAttribute('data-reveal', '');
     item.setAttribute('aria-labelledby', titleId);
 
-    // Left: certificate thumbnail.
+    // Top: certificate thumbnail preview
     if (image) {
       const thumbWrap = element('div', 'certificate-thumb');
       thumbWrap.setAttribute('role', 'button');
       thumbWrap.setAttribute('tabindex', '0');
-      thumbWrap.setAttribute('aria-label', `View the ${certificate.title} certificate`);
+      thumbWrap.setAttribute('aria-label', `View ${certificate.title} certificate in full`);
       thumbWrap.dataset.certIndex = String(index);
 
       const img = document.createElement('img');
@@ -449,44 +448,39 @@ function renderCertificates() {
       item.appendChild(thumbWrap);
     }
 
-    // Right: metadata, title, summary, actions.
+    // Body: category pill + date, title, issuer with icon, skills pills
     const body = element('div', 'certificate-body');
 
-    const metaParts = [certificate.issuer, certificate.date].filter(Boolean);
-    if (metaParts.length > 0) {
-      body.appendChild(element('p', 'certificate-meta', metaParts.join(' · ')));
-    }
+    // Header row: Category badge (left) + Date (right)
+    const headerRow = element('div', 'certificate-header-row');
+    const category = element('span', 'certificate-badge', certificate.category || 'CERTIFICATE');
+    headerRow.appendChild(category);
 
+    if (certificate.date) {
+      const date = element('span', 'certificate-date', certificate.date);
+      headerRow.appendChild(date);
+    }
+    body.appendChild(headerRow);
+
+    // Title
     const title = element('h3', 'certificate-title', certificate.title);
     title.id = titleId;
     body.appendChild(title);
 
-    if (certificate.summary) {
-      body.appendChild(element('p', 'certificate-summary', certificate.summary));
-    }
+    // Issuer with ribbon icon
+    const issuerRow = element('p', 'certificate-issuer');
+    issuerRow.appendChild(icon('i-award'));
+    issuerRow.appendChild(document.createTextNode(certificate.issuer));
+    body.appendChild(issuerRow);
 
-    const actions = element('div', 'certificate-actions');
-    if (url) {
-      const link = document.createElement('a');
-      link.className = 'button button--solid';
-      link.href = url;
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      link.appendChild(document.createTextNode('Verify credential'));
-      link.appendChild(icon('i-arrow-up-right'));
-      actions.appendChild(link);
+    // Skills pills
+    if (Array.isArray(certificate.skills) && certificate.skills.length > 0) {
+      const skillsWrap = element('div', 'certificate-skills');
+      certificate.skills.forEach((skill) => {
+        skillsWrap.appendChild(element('span', 'certificate-skill-pill', skill));
+      });
+      body.appendChild(skillsWrap);
     }
-    if (image) {
-      const view = document.createElement('a');
-      view.className = 'button button--outline';
-      view.href = image;
-      view.target = '_blank';
-      view.rel = 'noopener noreferrer';
-      view.appendChild(document.createTextNode('View certificate'));
-      view.appendChild(icon('i-arrow-up-right'));
-      actions.appendChild(view);
-    }
-    body.appendChild(actions);
 
     item.appendChild(body);
     fragment.appendChild(item);
