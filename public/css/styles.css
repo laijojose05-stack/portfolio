@@ -753,8 +753,17 @@ body.menu-open .site-header::after {
 .hero__inner {
   position: relative;
   z-index: 1;
-  display: block;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: clamp(1.5rem, 3.5vw, 3rem);
   width: 100%;
+}
+
+@media (min-width: 992px) {
+  .hero__inner {
+    grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
+  }
 }
 
 .hero__copy {
@@ -764,7 +773,6 @@ body.menu-open .site-header::after {
   flex-direction: column;
   align-items: flex-start;
   min-width: 0;
-  max-width: 58rem;
   width: 100%;
 }
 
@@ -6057,4 +6065,75 @@ body.intro-ready .hero__socials {
 
 .button--solid:hover::after {
   left: 130%;
+}
+
+
+/* ==========================================================================
+ * 3D INTERACTIVE ROBOT (Spline / Three.js WebGL Runtime)
+ * ========================================================================== */
+.hero__visual {
+  position: relative;
+  width: 100%;
+  height: clamp(380px, 48vh, 520px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  user-select: none;
+}
+
+.hero__profile-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  height: 100%;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.robot-3d {
+  width: 160% !important;
+  height: 405% !important;
+  position: absolute;
+  top: -155%;
+  left: -30%;
+  pointer-events: auto;
+}
+
+spline-viewer::part(badge),
+spline-viewer #logo,
+spline-viewer a[href*="spline.design"] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+@media (max-width: 991px) {
+  .hero__visual {
+    height: 340px;
+    margin-top: 1.5rem;
+    overflow: hidden;
+  }
+  .robot-3d {
+    width: 140% !important;
+    height: 350% !important;
+    top: -125%;
+    left: -20%;
+  }
+}
+
+@media (max-width: 575px) {
+  .hero__visual {
+    height: 280px;
+  }
+  .robot-3d {
+    width: 130% !important;
+    height: 320% !important;
+    top: -110%;
+    left: -15%;
+  }
 }

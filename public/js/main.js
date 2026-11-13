@@ -908,6 +908,27 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 /* --------------------------------------------------------------------------
  * Copy to Clipboard for Contact Details (inspired by portfolio111.vercel.app)
  * ------------------------------------------------------------------------ */
+/* --------------------------------------------------------------------------
+ * 3D Interactive Robot (Three.js / WebGL Spline Runtime)
+ * ------------------------------------------------------------------------ */
+function init3DRobot() {
+  const viewer = document.querySelector('.robot-3d');
+  if (!viewer) return;
+
+  function removeLogo() {
+    try {
+      const shadow = viewer.shadowRoot;
+      if (shadow) {
+        const logo = shadow.querySelector('#logo') || shadow.querySelector('a[href*="spline.design"]');
+        if (logo) logo.style.display = 'none';
+      }
+    } catch (_) {}
+  }
+
+  viewer.addEventListener('load', removeLogo);
+  const timer = setInterval(removeLogo, 300);
+  setTimeout(() => clearInterval(timer), 6000);
+}
 function initCopyContact() {
   const toast = document.getElementById('copy-toast');
   let toastTimer = null;
@@ -1241,6 +1262,7 @@ initSkillsMarquee();
 initReveal();
 initContactForm();
 initCopyContact();
+init3DRobot();
 initTypedRole();
 initLocalClock();
 initHeroParticles();

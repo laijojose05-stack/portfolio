@@ -30,11 +30,12 @@ app.use((req, res, next) => {
       "base-uri 'self'",
       "form-action 'self'",
       "frame-ancestors 'none'",
-      "img-src 'self' data:",
-      "script-src 'self'",
-      "style-src 'self'",
-      "font-src 'self'",
-      "connect-src 'self'",
+      "img-src 'self' data: blob: https:",
+      "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://unpkg.com",
+      "style-src 'self' 'unsafe-inline'",
+      "font-src 'self' data:",
+      "connect-src 'self' https://prod.spline.design https://unpkg.com",
+      "worker-src 'self' blob:",
       "object-src 'none'",
     ].join('; ')
   );
