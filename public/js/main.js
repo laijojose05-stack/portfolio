@@ -66,9 +66,10 @@ function createProjectCard(project, index) {
   project.technologies.forEach((tech) => techList.appendChild(element('li', 'tech-badge', tech)));
   body.appendChild(techList);
 
-  const thumbWrap = element('button', 'work-thumb');
-  thumbWrap.type = 'button';
+  const thumbWrap = element('div', 'work-thumb');
   thumbWrap.dataset.projectId = project.id;
+  thumbWrap.setAttribute('tabindex', '0');
+  thumbWrap.setAttribute('role', 'button');
   thumbWrap.setAttribute('aria-label', `Open the ${project.title} case study`);
   thumbWrap.setAttribute('aria-haspopup', 'dialog');
   if (project.thumbnailWidth && project.thumbnailHeight) {
@@ -84,10 +85,29 @@ function createProjectCard(project, index) {
   image.decoding = 'async';
   thumbWrap.appendChild(image);
 
-  const cue = element('span', 'work-thumb__cue');
-  cue.setAttribute('aria-hidden', 'true');
-  cue.appendChild(icon('i-arrow-up-right'));
-  thumbWrap.appendChild(cue);
+  // Interactive hover overlay inspired by portfolio111.vercel.app
+  const overlay = element('div', 'work-thumb__overlay');
+  const caseStudyBtn = element('button', 'work-thumb__overlay-btn');
+  caseStudyBtn.type = 'button';
+  caseStudyBtn.dataset.projectId = project.id;
+  caseStudyBtn.setAttribute('aria-label', `Read ${project.title} case study`);
+  caseStudyBtn.appendChild(icon('i-arrow-up-right'));
+  caseStudyBtn.appendChild(document.createTextNode('Case Study'));
+  overlay.appendChild(caseStudyBtn);
+
+  const githubUrlQuick = safeExternalUrl(project.links?.github);
+  if (githubUrlQuick) {
+    const githubLinkQuick = document.createElement('a');
+    githubLinkQuick.className = 'work-thumb__overlay-btn work-thumb__overlay-btn--github';
+    githubLinkQuick.href = githubUrlQuick;
+    githubLinkQuick.target = '_blank';
+    githubLinkQuick.rel = 'noopener noreferrer';
+    githubLinkQuick.setAttribute('aria-label', `View ${project.title} repository on GitHub`);
+    githubLinkQuick.appendChild(icon('i-github'));
+    githubLinkQuick.appendChild(document.createTextNode('GitHub'));
+    overlay.appendChild(githubLinkQuick);
+  }
+  thumbWrap.appendChild(overlay);
   body.appendChild(thumbWrap);
 
   const actions = element('div', 'work-actions');
@@ -363,8 +383,19 @@ function initModal() {
   if (!projectsGrid || !modalOverlay || !modalDialog) return;
 
   projectsGrid.addEventListener('click', (event) => {
+    if (event.target.closest('a')) return;
     const button = event.target.closest('[data-project-id]');
     if (button) openModal(button.dataset.projectId);
+  });
+  projectsGrid.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      if (event.target.closest('a')) return;
+      const button = event.target.closest('[data-project-id]');
+      if (button) {
+        event.preventDefault();
+        openModal(button.dataset.projectId);
+      }
+    }
   });
 
   modalCloseButton?.addEventListener('click', closeModal);
@@ -874,6 +905,60 @@ function initReveal() {
  * ------------------------------------------------------------------------ */
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
+/* --------------------------------------------------------------------------
+ * Copy to Clipboard for Contact Details (inspired by portfolio111.vercel.app)
+ * ------------------------------------------------------------------------ */
+function initCopyContact() {
+  const toast = document.getElementById('copy-toast');
+  let toastTimer = null;
+
+  function showToast(message) {
+    if (!toast) return;
+    toast.textContent = message;
+    toast.hidden = false;
+    toast.classList.add('is-visible');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('is-visible');
+      toastTimer = setTimeout(() => {
+        toast.hidden = true;
+      }, 300);
+    }, 2400);
+  }
+
+  document.querySelectorAll('.contact-row--actionable').forEach((row) => {
+    const textToCopy = row.getAttribute('data-copy');
+    if (!textToCopy) return;
+
+    row.addEventListener('click', async (e) => {
+      if (e.target.closest('a') && !e.target.closest('.contact-row__copy-btn')) return;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(textToCopy);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = textToCopy;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        showToast(`Copied ${textToCopy} to clipboard!`);
+      } catch (err) {
+        showToast(`Copied: ${textToCopy}`);
+      }
+    });
+
+    row.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        row.click();
+      }
+    });
+  });
+}
 function initContactForm() {
   const form = document.getElementById('contact-form');
   if (!form) return;
@@ -1155,6 +1240,7 @@ initScrollEffects();
 initSkillsMarquee();
 initReveal();
 initContactForm();
+initCopyContact();
 initTypedRole();
 initLocalClock();
 initHeroParticles();
