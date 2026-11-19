@@ -361,9 +361,9 @@ class RobotApp {
     const normX = (clientX - centerX) / (window.innerWidth / 2);
     const normY = (clientY - centerY) / (window.innerHeight / 2);
 
-    // Negative mapping so head turns toward pointer
-    const rawYaw = -normX * this.MAX_HEAD_YAW;
-    const rawPitch = -normY * this.MAX_HEAD_PITCH;
+    // Direct mapping so head turns toward the cursor position
+    const rawYaw = normX * this.MAX_HEAD_YAW;
+    const rawPitch = normY * this.MAX_HEAD_PITCH;
 
     this.targetHeadRotY = THREE.MathUtils.clamp(rawYaw, -this.MAX_HEAD_YAW, this.MAX_HEAD_YAW);
     this.targetHeadRotX = THREE.MathUtils.clamp(rawPitch, -this.MAX_HEAD_PITCH, this.MAX_HEAD_PITCH);
