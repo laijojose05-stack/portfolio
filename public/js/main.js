@@ -913,9 +913,11 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
  * ------------------------------------------------------------------------ */
 function init3DRobot() {
   const viewer = document.querySelector('.robot-3d');
+  const wrap = document.querySelector('.hero__profile-wrap');
   if (!viewer) return;
 
-  function removeLogo() {
+  function onLoaded() {
+    if (wrap) wrap.classList.add('is-loaded');
     try {
       const shadow = viewer.shadowRoot;
       if (shadow) {
@@ -925,8 +927,8 @@ function init3DRobot() {
     } catch (_) {}
   }
 
-  viewer.addEventListener('load', removeLogo);
-  const timer = setInterval(removeLogo, 300);
+  viewer.addEventListener('load', onLoaded);
+  const timer = setInterval(onLoaded, 300);
   setTimeout(() => clearInterval(timer), 6000);
 }
 function initCopyContact() {
