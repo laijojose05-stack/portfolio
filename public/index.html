@@ -26,9 +26,17 @@
   <link rel="apple-touch-icon" href="/favicon.svg?v=2">
   <link rel="preload" href="/fonts/space-grotesk-var.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin>
-  <script type="module" src="/vendor/spline-viewer.js"></script>
-  <link rel="stylesheet" href="/css/styles.css?v=41">
-  <script type="module" src="/js/main.js?v=41"></script>
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "/vendor/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module" src="/js/robot.js?v=42"></script>
+  <link rel="stylesheet" href="/css/styles.css?v=42">
+  <script type="module" src="/js/main.js?v=42"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -213,9 +221,9 @@
           </div>
         </div>
 
-        <div class="hero__visual" aria-hidden="true">
-          <div class="hero__profile-wrap">
-            <spline-viewer class="robot-3d" url="/vendor/scene.splinecode"></spline-viewer>
+        <div class="hero__visual">
+          <div class="hero__profile-wrap" id="robot-container">
+            <canvas id="robot-canvas" aria-label="Interactive 3D Robot Developer Assistant" role="img"></canvas>
           </div>
         </div>
 

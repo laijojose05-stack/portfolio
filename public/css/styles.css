@@ -6078,7 +6078,7 @@ body.intro-ready .hero__socials {
 
 
 /* ==========================================================================
- * 3D INTERACTIVE ROBOT (Spline / Three.js WebGL Runtime - Centered & Visible)
+ * 3D PROCEDURAL ROBOT (Three.js WebGL Interactive Companion)
  * ========================================================================== */
 .hero__visual {
   position: relative;
@@ -6115,84 +6115,24 @@ body.intro-ready .hero__socials {
   z-index: 0;
 }
 
-.hero__profile-wrap spline-viewer,
-.robot-3d {
+/* Three.js Robot Canvas */
+#robot-canvas {
   width: 100% !important;
   height: 100% !important;
-  position: relative !important;
-  top: 0 !important;
-  left: 0 !important;
-  display: block !important;
-  pointer-events: auto;
+  display: block;
+  touch-action: pan-y;
+  cursor: grab;
+  position: relative;
   z-index: 1;
+  outline: none;
+  border-radius: 16px;
 }
 
-spline-viewer::part(badge),
-spline-viewer #logo,
-spline-viewer a[href*="spline.design"] {
-  display: none !important;
-  opacity: 0 !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
+#robot-canvas.is-grabbing {
+  cursor: grabbing;
 }
 
-@media (max-width: 991px) {
-  .hero__visual {
-    height: 360px;
-    margin-top: 1.5rem;
-  }
-}
-
-@media (max-width: 575px) {
-  .hero__visual {
-    height: 300px;
-  }
-}
-
-
-/* ==========================================================================
- * COMPREHENSIVE UI FLAW FIXES & RESPONSIVE POLISH
- * ========================================================================== */
-
-/* --- Light Mode Card & Button Polish --- */
-[data-theme='light'] .service-card {
-  background: var(--surface);
-  border-color: var(--line);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
-}
-
-[data-theme='light'] .service-card:hover {
-  border-color: var(--accent);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07), 0 0 16px var(--accent-soft);
-}
-
-[data-theme='light'] .contact-row__copy-btn {
-  background: rgba(0, 0, 0, 0.04);
-  border-color: var(--line);
-  color: var(--muted);
-}
-
-[data-theme='light'] .contact-row__copy-btn:hover {
-  background: var(--accent-soft);
-  border-color: var(--accent);
-  color: var(--accent-strong);
-}
-
-/* --- Disable Sticky Project Overlay on Touch Devices --- */
-@media (hover: none) {
-  .work-thumb__overlay {
-    display: none !important;
-  }
-}
-
-/* --- Mobile Hero 3D Robot Optimization: Hide on mobile < 768px for zero touch-drag blocking --- */
-@media (max-width: 767px) {
-  .hero__visual {
-    display: none !important;
-  }
-}
-
-/* --- 3D Robot Loader Spinner until WebGL Scene Compiles --- */
+/* Subtle loader spinner while scene initializes */
 .hero__profile-wrap::after {
   content: '';
   position: absolute;
@@ -6217,7 +6157,53 @@ spline-viewer a[href*="spline.design"] {
   to { transform: rotate(360deg); }
 }
 
-/* --- Responsive Copy Toast on Mobile --- */
+@media (max-width: 991px) {
+  .hero__visual {
+    height: 360px;
+    margin-top: 1.5rem;
+  }
+}
+
+@media (max-width: 575px) {
+  .hero__visual {
+    height: 300px;
+  }
+}
+
+/* ==========================================================================
+ * LIGHT MODE POLISH & TOUCH INTERACTION POLISH
+ * ========================================================================== */
+[data-theme='light'] .service-card {
+  background: var(--surface);
+  border-color: var(--line);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.03);
+}
+
+[data-theme='light'] .service-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.07), 0 0 16px var(--accent-soft);
+}
+
+[data-theme='light'] .contact-row__copy-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: var(--line);
+  color: var(--muted);
+}
+
+[data-theme='light'] .contact-row__copy-btn:hover {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+
+/* Disable sticky overlay on touch-only devices */
+@media (hover: none) {
+  .work-thumb__overlay {
+    display: none !important;
+  }
+}
+
+/* Responsive Copy Toast on Mobile */
 @media (max-width: 575px) {
   .copy-toast {
     left: 50% !important;
