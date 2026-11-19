@@ -6106,11 +6106,11 @@ body.intro-ready .hero__socials {
 .hero__profile-wrap::before {
   content: '';
   position: absolute;
-  width: clamp(240px, 28vw, 360px);
-  height: clamp(240px, 28vw, 360px);
+  width: clamp(260px, 32vw, 420px);
+  height: clamp(260px, 32vw, 420px);
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(0, 240, 160, 0.14) 0%, rgba(0, 240, 160, 0.02) 60%, transparent 80%);
-  filter: blur(25px);
+  background: radial-gradient(circle, rgba(220, 125, 60, 0.18) 0%, rgba(0, 240, 160, 0.08) 50%, transparent 75%);
+  filter: blur(35px);
   pointer-events: none;
   z-index: 0;
 }
