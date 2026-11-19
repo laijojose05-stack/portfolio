@@ -788,26 +788,37 @@ function initNavigation() {
     });
   }
 
-  function updateActiveSection() {
-    if (sections.length === 0) return;
-
-    const probe = window.scrollY + (header ? header.offsetHeight : 76) + 120;
-    let current = sections[0];
-
-    sections.forEach((section) => {
-      const top = section.getBoundingClientRect().top + window.scrollY;
-      if (top <= probe) current = section;
-    });
-
-    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 8) {
-      current = sections[sections.length - 1];
-    }
-
-    setActiveSection(current.id);
+    let sectionOffsets = [];
+  function cacheSectionOffsets() {
+    sectionOffsets = sections.map((sec) => ({
+      id: sec.id,
+      top: sec.offsetTop
+    }));
   }
 
+  function updateActiveSection() {
+    if (sections.length === 0) return;
+    if (sectionOffsets.length === 0) cacheSectionOffsets();
+
+    const probe = (window.scrollY || window.pageYOffset) + (header ? header.offsetHeight : 76) + 120;
+    let currentId = sections[0].id;
+
+    for (let i = 0; i < sectionOffsets.length; i++) {
+      if (sectionOffsets[i].top <= probe) {
+        currentId = sectionOffsets[i].id;
+      }
+    }
+
+    if (window.innerHeight + (window.scrollY || window.pageYOffset) >= document.documentElement.scrollHeight - 8) {
+      currentId = sections[sections.length - 1].id;
+    }
+
+    setActiveSection(currentId);
+  }
+
+  cacheSectionOffsets();
+  window.addEventListener('resize', cacheSectionOffsets, { passive: true });
   updateActiveSection();
-  window.addEventListener('resize', updateActiveSection);
   return updateActiveSection;
 }
 
@@ -1257,7 +1268,7 @@ function initHeroParticles() {
   const ctx = canvas.getContext('2d');
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
   let width, height;
-  const PARTICLE_COUNT = 50;
+  const PARTICLE_COUNT = 18;
   const particles = [];
 
   function resize() {
@@ -1344,14 +1355,17 @@ function initHeroScrollParallax() {
   if (!heroCopy || !hero) return;
 
   let ticking = false;
+  let heroHeight = hero.offsetHeight;
+
+  window.addEventListener('resize', () => {
+    heroHeight = hero.offsetHeight;
+  }, { passive: true });
 
   function onScroll() {
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(() => {
-      const heroRect = hero.getBoundingClientRect();
-      const heroHeight = heroRect.height;
-      const scrolled = -heroRect.top;
+      const scrolled = window.scrollY || window.pageYOffset;
 
       if (scrolled < 0 || scrolled > heroHeight) {
         ticking = false;
@@ -1360,7 +1374,7 @@ function initHeroScrollParallax() {
 
       const progress = Math.max(0, Math.min((scrolled - heroHeight * 0.2) / (heroHeight * 0.6), 1));
       const opacity = 1 - progress;
-      const translateY = -progress * 60;
+      const translateY = -progress * 45;
 
       heroCopy.style.opacity = opacity.toFixed(3);
       heroCopy.style.transform = `translateY(${translateY.toFixed(1)}px)`;
@@ -1425,75 +1439,53 @@ function initAmbientCursor() {
   const isFinePointer = window.matchMedia('(pointer: fine)').matches;
   if (!isFinePointer || reduceMotion) return;
 
-  const root = document.documentElement;
   const heroTitle = document.querySelector('.hero__title');
   const cards = Array.from(document.querySelectorAll('.work-thumb, .education-card'));
 
-  let mouseX = window.innerWidth / 2;
-  let mouseY = window.innerHeight / 2;
-  let targetX = mouseX;
-  let targetY = mouseY;
+  // Local card coordinates: only calculated when pointer is directly on the card
+  cards.forEach((card) => {
+    card.addEventListener('pointermove', (e) => {
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--card-mouse-x', `${e.clientX - rect.left}px`);
+      card.style.setProperty('--card-mouse-y', `${e.clientY - rect.top}px`);
+    }, { passive: true });
+  });
+
+  if (!heroTitle) return;
+
+  let targetX = window.innerWidth / 2;
+  let targetY = window.innerHeight / 2;
   let isTicking = false;
 
   window.addEventListener(
-    'mousemove',
+    'pointermove',
     (e) => {
       targetX = e.clientX;
       targetY = e.clientY;
-      root.style.setProperty('--mouse-opacity', '1');
 
-      // Update card relative coordinate for spotlight border
-      cards.forEach((card) => {
-        const rect = card.getBoundingClientRect();
-        if (
-          targetX >= rect.left - 100 &&
-          targetX <= rect.right + 100 &&
-          targetY >= rect.top - 100 &&
-          targetY <= rect.bottom + 100
-        ) {
-          card.style.setProperty('--card-mouse-x', `${targetX - rect.left}px`);
-          card.style.setProperty('--card-mouse-y', `${targetY - rect.top}px`);
-        }
-      });
-
-      if (!isTicking) {
+      if (!isTicking && (window.scrollY || window.pageYOffset) < window.innerHeight) {
         isTicking = true;
-        window.requestAnimationFrame(updateCursorEffects);
+        window.requestAnimationFrame(updateHeroTilt);
       }
     },
     { passive: true }
   );
 
   document.addEventListener('mouseleave', () => {
-    root.style.setProperty('--mouse-opacity', '0');
     if (heroTitle) heroTitle.style.transform = 'none';
   });
 
-  function updateCursorEffects() {
-    // Smooth lerp for ambient fluid lighting
-    const ease = 0.12;
-    mouseX += (targetX - mouseX) * ease;
-    mouseY += (targetY - mouseY) * ease;
-
-    root.style.setProperty('--mouse-x', `${mouseX.toFixed(1)}px`);
-    root.style.setProperty('--mouse-y', `${mouseY.toFixed(1)}px`);
-
-    // 3D parallax on hero title when cursor moves across the viewport
-    if (heroTitle && window.scrollY < window.innerHeight) {
+  function updateHeroTilt() {
+    if ((window.scrollY || window.pageYOffset) < window.innerHeight) {
       const centerX = window.innerWidth / 2;
       const centerY = window.innerHeight / 2;
-      const tiltX = ((mouseX - centerX) / centerX) * 14;
-      const tiltY = ((mouseY - centerY) / centerY) * 8;
-      const rotY = ((mouseX - centerX) / centerX) * 4;
-      const rotX = -((mouseY - centerY) / centerY) * 3;
-      heroTitle.style.transform = `perspective(800px) translate3d(${tiltX.toFixed(2)}px, ${tiltY.toFixed(2)}px, 0) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+      const tiltX = ((targetX - centerX) / centerX) * 8;
+      const tiltY = ((targetY - centerY) / centerY) * 5;
+      const rotY = ((targetX - centerX) / centerX) * 2.5;
+      const rotX = -((targetY - centerY) / centerY) * 2;
+      heroTitle.style.transform = `perspective(800px) translate3d(${tiltX.toFixed(1)}px, ${tiltY.toFixed(1)}px, 0) rotateX(${rotX.toFixed(1)}deg) rotateY(${rotY.toFixed(1)}deg)`;
     }
-
-    if (Math.abs(targetX - mouseX) > 0.2 || Math.abs(targetY - mouseY) > 0.2) {
-      window.requestAnimationFrame(updateCursorEffects);
-    } else {
-      isTicking = false;
-    }
+    isTicking = false;
   }
 }
 
@@ -1569,63 +1561,39 @@ function initStatCountUp() {
 function initSkillCardTilt() {
   const isFinePointer = window.matchMedia('(pointer: fine)').matches;
   if (!isFinePointer || reduceMotion) return;
-  
+
   const cards = document.querySelectorAll('.skill-card');
-  
+
   cards.forEach((card) => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
+    let rect = null;
+
+    card.addEventListener('pointerenter', () => {
+      rect = card.getBoundingClientRect();
+    }, { passive: true });
+
+    card.addEventListener('pointermove', (e) => {
+      if (!rect) rect = card.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
-      const rotateX = y * -12;
-      const rotateY = x * 12;
-      card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px) scale(1.03)`;
-    });
-    
-    card.addEventListener('mouseleave', () => {
+      const rotateX = y * -8;
+      const rotateY = x * 8;
+      card.style.transform = `perspective(600px) rotateX(${rotateX.toFixed(1)}deg) rotateY(${rotateY.toFixed(1)}deg) translateY(-3px)`;
+    }, { passive: true });
+
+    card.addEventListener('pointerleave', () => {
+      rect = null;
       card.style.transform = '';
-    });
+    }, { passive: true });
   });
 }
 
 /* --------------------------------------------------------------------------
  * Smooth Parallax for Section Titles on Scroll
  * ------------------------------------------------------------------------ */
-function initSectionParallax() {
-  if (reduceMotion) return;
-  
-  const titles = document.querySelectorAll('.section-title, .about-title, .work-title, .contact-title');
-  if (!titles.length) return;
-  
-  let ticking = false;
-  
-  function updateParallax() {
-    const scrollY = window.scrollY;
-    const vh = window.innerHeight;
-    
-    titles.forEach((title) => {
-      const rect = title.getBoundingClientRect();
-      const centerY = rect.top + rect.height / 2;
-      const offset = (centerY - vh / 2) / vh;
-      const translateY = offset * -15;
-      title.style.transform = `translateY(${translateY.toFixed(2)}px)`;
-    });
-    
-    ticking = false;
-  }
-  
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      ticking = true;
-      requestAnimationFrame(updateParallax);
-    }
-  }, { passive: true });
-}
 
 initSectionObserver();
 initStatCountUp();
 initSkillCardTilt();
-initSectionParallax();
 initAmbientCursor();
 initMobileHeroInteractions();
 

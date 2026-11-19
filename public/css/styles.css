@@ -703,16 +703,7 @@ body.menu-open .site-header::after {
 
 @media (prefers-reduced-motion: no-preference) {
   .hero::before {
-    animation: heroMeshGlide 22s linear infinite;
-  }
-}
-
-@keyframes heroMeshGlide {
-  0% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(80px);
+    /* static grid background for zero repaint */
   }
 }
 
@@ -725,28 +716,12 @@ body.menu-open .site-header::after {
   height: 44rem;
   pointer-events: none;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(41, 98, 255, 0.18) 0%, rgba(204, 255, 0, 0.08) 40%, transparent 70%);
-  filter: blur(40px);
+  background: radial-gradient(circle, rgba(41, 98, 255, 0.14) 0%, rgba(204, 255, 0, 0.04) 35%, transparent 70%);
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .hero::after {
-    animation: heroOrbFloat 16s ease-in-out infinite alternate;
-  }
-}
-
-@keyframes heroOrbFloat {
-  0% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.8;
-  }
-  50% {
-    transform: translate3d(-60px, 45px, 0) scale(1.18);
-    opacity: 1;
-  }
-  100% {
-    transform: translate3d(30px, -30px, 0) scale(0.95);
-    opacity: 0.75;
+    /* static ambient orb */
   }
 }
 
@@ -4087,22 +4062,7 @@ a.contact-row:hover .contact-row__arrow {
 }
 
 @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  /* Ambient full-page radial glow following the cursor */
-  body::after {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background: radial-gradient(
-      850px circle at var(--mouse-x) var(--mouse-y),
-      rgba(41, 98, 255, 0.16) 0%,
-      rgba(204, 255, 0, 0.04) 40%,
-      transparent 70%
-    );
-    opacity: var(--mouse-opacity);
-    transition: opacity 0.4s ease;
-  }
+  /* Full-page torch removed for zero-lag 60fps rendering */
 
   /* Dynamic spotlight border glow on cards when cursor hovers near */
   .work-thumb,
@@ -5512,12 +5472,8 @@ body.intro-ready .hero__socials {
    Ambient Animations: Gradient Shimmer, Glow & Pulse
    ========================================================================== */
 @media (prefers-reduced-motion: no-preference) {
-  /* Dynamic continuous ambient glow across the background grid */
-  body::before {
-    animation: ambientGridBreathe 14s ease-in-out infinite alternate;
-  }
-
-  /* Status dot ripple glow */
+  /* Static background grid for 60fps performance */
+/* Status dot ripple glow */
   .status-dot {
     animation: statusRingPulse 2.8s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
   }
@@ -5542,21 +5498,6 @@ body.intro-ready .hero__socials {
   /* Subtle floating drift on skill badges */
   .skill-card:hover .skill-card__icon {
     animation: iconGentleFloat 1.2s ease-in-out infinite alternate;
-  }
-}
-
-@keyframes ambientGridBreathe {
-  0% {
-    opacity: 0.82;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.02);
-  }
-  100% {
-    opacity: 0.88;
-    transform: scale(0.99);
   }
 }
 
