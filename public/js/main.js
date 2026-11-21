@@ -461,15 +461,42 @@ const certModalImage = document.getElementById('certificate-modal-image');
 const certModalCaption = document.getElementById('certificate-modal-caption');
 let certModalOpen = false;
 
+let certRotation = 0;
+
+function rotateCert() {
+  certRotation = (certRotation + 90) % 360;
+  const image = document.getElementById('certificate-modal-image');
+  if (!image) return;
+  image.style.transform = `rotate(${certRotation}deg)`;
+  if (certRotation === 90 || certRotation === 270) {
+    image.style.maxHeight = '85vw';
+    image.style.maxWidth = 'calc(80vh - 40px)';
+  } else {
+    image.style.maxHeight = 'calc(85vh - 36px)';
+    image.style.maxWidth = '90vw';
+  }
+}
+
 function openCertModal(index) {
   const cert = certificates[index];
   const modal = document.getElementById('certificate-modal');
   const image = document.getElementById('certificate-modal-image');
   const caption = document.getElementById('certificate-modal-caption');
+  const openLink = document.getElementById('certificate-modal-open-link');
   if (!cert || !modal || !image) return;
+
+  certRotation = 0;
+  image.style.transform = 'none';
+  image.style.maxHeight = 'calc(85vh - 36px)';
+  image.style.maxWidth = '90vw';
 
   image.src = cert.image;
   image.alt = cert.imageAlt || cert.title;
+
+  if (openLink) {
+    openLink.href = cert.image;
+  }
+
   const datePart = cert.date ? ` · ${cert.date}` : '';
   if (caption) {
     caption.textContent = `${cert.title} — ${cert.issuer}${datePart}`;
@@ -528,8 +555,13 @@ function initCertModal() {
   const closeBtn = document.getElementById('certificate-modal-close');
   closeBtn?.addEventListener('click', closeCertModal);
 
+  const rotateBtn = document.getElementById('certificate-modal-rotate');
+  rotateBtn?.addEventListener('click', rotateCert);
+
   modal.addEventListener('click', (event) => {
-    if (event.target === modal) closeCertModal();
+    if (event.target === modal || event.target.classList.contains('certificate-modal__image-wrap')) {
+      closeCertModal();
+    }
   });
 
   document.addEventListener('keydown', (event) => {
@@ -537,6 +569,8 @@ function initCertModal() {
     if (event.key === 'Escape') {
       event.preventDefault();
       closeCertModal();
+    } else if (event.key === 'r' || event.key === 'R') {
+      rotateCert();
     }
   });
 }
