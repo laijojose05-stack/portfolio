@@ -105,8 +105,14 @@ body.modal-open {
   color: var(--accent-ink);
 }
 
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--bg-deep);
+}
+
 ::-webkit-scrollbar {
   width: 7px;
+  height: 7px;
 }
 
 ::-webkit-scrollbar-track {
@@ -114,11 +120,12 @@ body.modal-open {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--surface-3);
+  background: var(--accent);
+  border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--faint);
+  background: var(--accent-strong, #b8e600);
 }
 
 h1,
@@ -2897,9 +2904,7 @@ a.contact-row:hover .contact-row__arrow {
   width: 6px;
 }
 
-.modal-scroll::-webkit-scrollbar-thumb {
-  background: var(--surface-3);
-}
+.modal-scroll::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 999px; }
 
 .modal-content {
   padding: clamp(1.2rem, 3vw, 1.9rem);
