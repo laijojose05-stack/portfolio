@@ -5715,6 +5715,7 @@ body.intro-ready .hero__socials {
   background: transparent;
   padding: 0;
   text-align: left;
+  text-decoration: none;
 }
 
 .work-thumb img {

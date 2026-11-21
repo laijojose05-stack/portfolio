@@ -66,12 +66,17 @@ function createProjectCard(project, index) {
   project.technologies.forEach((tech) => techList.appendChild(element('li', 'tech-badge', tech)));
   body.appendChild(techList);
 
-  const thumbWrap = element('div', 'work-thumb');
-  thumbWrap.dataset.projectId = project.id;
-  thumbWrap.setAttribute('tabindex', '0');
-  thumbWrap.setAttribute('role', 'button');
-  thumbWrap.setAttribute('aria-label', `Open the ${project.title} case study`);
-  thumbWrap.setAttribute('aria-haspopup', 'dialog');
+  const githubUrl = safeExternalUrl(project.links?.github);
+  const demoUrl = safeExternalUrl(project.links?.demo);
+  const primaryUrl = demoUrl || githubUrl;
+
+  const thumbWrap = element(primaryUrl ? 'a' : 'div', 'work-thumb');
+  if (primaryUrl) {
+    thumbWrap.href = primaryUrl;
+    thumbWrap.target = '_blank';
+    thumbWrap.rel = 'noopener noreferrer';
+    thumbWrap.setAttribute('aria-label', `View ${project.title} on ${demoUrl ? 'live demo' : 'GitHub'}`);
+  }
   if (project.thumbnailWidth && project.thumbnailHeight) {
     thumbWrap.classList.add('work-thumb--photo');
   }
@@ -85,42 +90,24 @@ function createProjectCard(project, index) {
   image.decoding = 'async';
   thumbWrap.appendChild(image);
 
-  // Interactive hover overlay inspired by portfolio111.vercel.app
+  // Interactive hover overlay
   const overlay = element('div', 'work-thumb__overlay');
-  const caseStudyBtn = element('button', 'work-thumb__overlay-btn');
-  caseStudyBtn.type = 'button';
-  caseStudyBtn.dataset.projectId = project.id;
-  caseStudyBtn.setAttribute('aria-label', `Read ${project.title} case study`);
-  caseStudyBtn.appendChild(icon('i-arrow-up-right'));
-  caseStudyBtn.appendChild(document.createTextNode('Case Study'));
-  overlay.appendChild(caseStudyBtn);
-
-  const githubUrlQuick = safeExternalUrl(project.links?.github);
-  if (githubUrlQuick) {
-    const githubLinkQuick = document.createElement('a');
-    githubLinkQuick.className = 'work-thumb__overlay-btn work-thumb__overlay-btn--github';
-    githubLinkQuick.href = githubUrlQuick;
-    githubLinkQuick.target = '_blank';
-    githubLinkQuick.rel = 'noopener noreferrer';
-    githubLinkQuick.setAttribute('aria-label', `View ${project.title} repository on GitHub`);
-    githubLinkQuick.appendChild(icon('i-github'));
-    githubLinkQuick.appendChild(document.createTextNode('GitHub'));
-    overlay.appendChild(githubLinkQuick);
+  if (demoUrl) {
+    const demoBadge = element('span', 'work-thumb__overlay-btn');
+    demoBadge.appendChild(icon('i-external'));
+    demoBadge.appendChild(document.createTextNode('Live Demo'));
+    overlay.appendChild(demoBadge);
+  }
+  if (githubUrl) {
+    const githubBadge = element('span', 'work-thumb__overlay-btn work-thumb__overlay-btn--github');
+    githubBadge.appendChild(icon('i-github'));
+    githubBadge.appendChild(document.createTextNode('GitHub'));
+    overlay.appendChild(githubBadge);
   }
   thumbWrap.appendChild(overlay);
   body.appendChild(thumbWrap);
 
   const actions = element('div', 'work-actions');
-  const detailsButton = element('button', 'btn-details');
-  detailsButton.type = 'button';
-  detailsButton.dataset.projectId = project.id;
-  detailsButton.setAttribute('aria-label', `View details for ${project.title}`);
-  detailsButton.setAttribute('aria-haspopup', 'dialog');
-  detailsButton.appendChild(document.createTextNode('Open case study'));
-  detailsButton.appendChild(icon('i-arrow-right'));
-  actions.appendChild(detailsButton);
-
-  const githubUrl = safeExternalUrl(project.links?.github);
   if (githubUrl) {
     const githubLink = document.createElement('a');
     githubLink.className = 'button button--outline';
@@ -132,10 +119,9 @@ function createProjectCard(project, index) {
     actions.appendChild(githubLink);
   }
 
-  const demoUrl = safeExternalUrl(project.links?.demo);
   if (demoUrl) {
     const demoLink = document.createElement('a');
-    demoLink.className = 'button button--outline';
+    demoLink.className = 'button button--solid';
     demoLink.href = demoUrl;
     demoLink.target = '_blank';
     demoLink.rel = 'noopener noreferrer';
@@ -144,7 +130,9 @@ function createProjectCard(project, index) {
     actions.appendChild(demoLink);
   }
 
-  body.appendChild(actions);
+  if (actions.children.length > 0) {
+    body.appendChild(actions);
+  }
 
   item.appendChild(number);
   item.appendChild(body);
@@ -380,63 +368,7 @@ function closeModal() {
 }
 
 function initModal() {
-  if (!projectsGrid || !modalOverlay || !modalDialog) return;
-
-  projectsGrid.addEventListener('click', (event) => {
-    if (event.target.closest('a')) return;
-    const button = event.target.closest('[data-project-id]');
-    if (button) openModal(button.dataset.projectId);
-  });
-  projectsGrid.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      if (event.target.closest('a')) return;
-      const button = event.target.closest('[data-project-id]');
-      if (button) {
-        event.preventDefault();
-        openModal(button.dataset.projectId);
-      }
-    }
-  });
-
-  modalCloseButton?.addEventListener('click', closeModal);
-
-  modalOverlay.addEventListener('click', (event) => {
-    if (event.target === modalOverlay) closeModal();
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (!modalOpen) return;
-
-    if (event.key === 'Escape') {
-      event.preventDefault();
-      closeModal();
-      return;
-    }
-
-    if (event.key !== 'Tab') return;
-
-    const focusable = getModalFocusableElements();
-    if (focusable.length === 0) {
-      event.preventDefault();
-      modalDialog.focus();
-      return;
-    }
-
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-    const active = document.activeElement;
-
-    if (event.shiftKey && (active === first || active === modalDialog)) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && active === last) {
-      event.preventDefault();
-      first.focus();
-    } else if (!modalDialog.contains(active)) {
-      event.preventDefault();
-      first.focus();
-    }
-  });
+  // Case study modal removed per user preference
 }
 
 /* --------------------------------------------------------------------------
