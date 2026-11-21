@@ -463,24 +463,34 @@ let certModalOpen = false;
 
 function openCertModal(index) {
   const cert = certificates[index];
-  if (!cert || !certModal) return;
-  certModalImage.src = cert.image;
-  certModalImage.alt = cert.imageAlt || cert.title;
+  const modal = document.getElementById('certificate-modal');
+  const image = document.getElementById('certificate-modal-image');
+  const caption = document.getElementById('certificate-modal-caption');
+  if (!cert || !modal || !image) return;
+
+  image.src = cert.image;
+  image.alt = cert.imageAlt || cert.title;
   const datePart = cert.date ? ` · ${cert.date}` : '';
-  certModalCaption.textContent = `${cert.title} — ${cert.issuer}${datePart}`;
-  certModal.hidden = false;
+  if (caption) {
+    caption.textContent = `${cert.title} — ${cert.issuer}${datePart}`;
+  }
+
+  modal.hidden = false;
   document.body.classList.add('cert-modal-open');
-  window.requestAnimationFrame(() => certModal.classList.add('is-open'));
+  window.requestAnimationFrame(() => modal.classList.add('is-open'));
   certModalOpen = true;
 }
 
 function closeCertModal() {
   if (!certModalOpen) return;
-  certModal.classList.remove('is-open');
+  const modal = document.getElementById('certificate-modal');
+  if (modal) {
+    modal.classList.remove('is-open');
+  }
   document.body.classList.remove('cert-modal-open');
   certModalOpen = false;
   certModalTimer = window.setTimeout(() => {
-    certModal.hidden = true;
+    if (modal) modal.hidden = true;
     certModalTimer = null;
   }, reduceMotion ? 0 : 250);
 }
@@ -489,24 +499,37 @@ let certModalTimer = null;
 
 function initCertModal() {
   const grid = document.getElementById('certificates-grid');
-  if (!grid || !certModal) return;
+  const modal = document.getElementById('certificate-modal');
+  if (!grid || !modal) return;
 
   grid.addEventListener('click', (event) => {
-    const thumb = event.target.closest('[data-cert-index]');
-    if (thumb) openCertModal(thumb.dataset.certIndex);
-  });
-
-  grid.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-      const thumb = event.target.closest('[data-cert-index]');
-      if (thumb) openCertModal(thumb.dataset.certIndex);
+    const trigger = event.target.closest('[data-cert-index], .certificate-card');
+    if (trigger) {
+      const index = trigger.dataset.certIndex || trigger.querySelector('[data-cert-index]')?.dataset.certIndex;
+      if (index !== undefined && index !== null) {
+        openCertModal(Number(index));
+      }
     }
   });
 
-  certModalClose?.addEventListener('click', closeCertModal);
+  grid.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      const trigger = event.target.closest('[data-cert-index], .certificate-card');
+      if (trigger) {
+        event.preventDefault();
+        const index = trigger.dataset.certIndex || trigger.querySelector('[data-cert-index]')?.dataset.certIndex;
+        if (index !== undefined && index !== null) {
+          openCertModal(Number(index));
+        }
+      }
+    }
+  });
 
-  certModal?.addEventListener('click', (event) => {
-    if (event.target === certModal) closeCertModal();
+  const closeBtn = document.getElementById('certificate-modal-close');
+  closeBtn?.addEventListener('click', closeCertModal);
+
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) closeCertModal();
   });
 
   document.addEventListener('keydown', (event) => {
@@ -1175,6 +1198,7 @@ if (projectsGrid) {
 }
 
 renderCertificates();
+  initCertModal();
 
 const navUpdater = initNavigation();
 if (typeof navUpdater === 'function') updateActiveSection = navUpdater;

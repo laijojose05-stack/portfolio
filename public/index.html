@@ -28,8 +28,8 @@
   <link rel="preload" href="/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin>
 
 
-  <link rel="stylesheet" href="/css/styles.css?v=55">
-  <script type="module" src="/js/main.js?v=55"></script>
+  <link rel="stylesheet" href="/css/styles.css?v=56">
+  <script type="module" src="/js/main.js?v=56"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -578,6 +578,17 @@
   <button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top">
     <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-arrow-up"></use></svg>
   </button>
+
+    <!-- ============================ CERTIFICATE LIGHTBOX MODAL ============================ -->
+  <div class="certificate-modal" id="certificate-modal" hidden>
+    <div class="certificate-modal__content">
+      <button class="certificate-modal__close" id="certificate-modal-close" type="button" aria-label="Close certificate preview">
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-x"></use></svg>
+      </button>
+      <img class="certificate-modal__image" id="certificate-modal-image" src="" alt="">
+      <p class="certificate-modal__caption mono" id="certificate-modal-caption"></p>
+    </div>
+  </div>
 
     <div class="copy-toast" id="copy-toast" role="status" aria-live="polite" hidden>Copied to clipboard!</div>
 </body>

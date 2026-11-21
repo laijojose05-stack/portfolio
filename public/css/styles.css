@@ -96,7 +96,8 @@ body::before {
 }
 
 body.menu-open,
-body.modal-open {
+body.modal-open,
+body.cert-modal-open {
   overflow: hidden;
 }
 
