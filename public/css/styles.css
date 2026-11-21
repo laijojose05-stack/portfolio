@@ -732,6 +732,15 @@ body.menu-open .site-header::after {
   width: 100%;
 }
 
+@media (min-width: 992px) {
+  .hero__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.18fr) minmax(360px, 0.82fr);
+    align-items: center;
+    gap: clamp(2.5rem, 4.5vw, 4.5rem);
+  }
+}
+
 .hero__copy {
   position: relative;
   z-index: 2;
@@ -1505,7 +1514,11 @@ body.menu-open .site-header::after {
 .skill-card__icon--vscode { --icon: url('/images/icons/vscode.svg?v=6'); }
 .skill-card__icon--xampp { --icon: url('/images/icons/xampp.svg?v=6'); }
 
-[data-theme='light'] .skill-card__icon--github { filter: brightness(0.12); }
+[data-theme='light'] .skill-card__icon--github,
+[data-theme='light'] .skill-card__icon--flask,
+[data-theme='light'] .skill-card__icon--express {
+  filter: brightness(0.12);
+}
 
 .skill-card__name {
   font-family: var(--font-mono);
@@ -1816,23 +1829,26 @@ body.menu-open .site-header::after {
 }
 
 .filter-chip {
-  padding: 0.45rem 0.8rem;
+  padding: 0.45rem 1.05rem;
   border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  background: transparent;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
   color: var(--muted);
   font-family: var(--font-mono);
-  font-size: 0.59rem;
-  letter-spacing: 0.07em;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   line-height: 1.3;
   text-transform: uppercase;
-  transition: color 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
 }
 
 .filter-chip:hover {
   border-color: var(--accent);
   color: var(--accent);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  background: rgba(0, 240, 160, 0.06);
 }
 
 .filter-chip:active {
@@ -1842,9 +1858,10 @@ body.menu-open .site-header::after {
 .filter-chip.is-active {
   border-color: var(--accent);
   background: var(--accent);
-  color: var(--accent-ink);
+  color: var(--accent-ink, #0b0d0c);
+  font-weight: 600;
+  box-shadow: 0 0 16px var(--accent-soft), 0 2px 8px rgba(0, 0, 0, 0.3);
 }
-
 .filter-status {
   margin-left: auto;
   font-family: var(--font-mono);
@@ -4270,7 +4287,12 @@ a.contact-row:hover .contact-row__arrow {
 [data-theme='light'] .education-year {
   color: var(--ink-strong);
   -webkit-text-stroke: 0;
-  opacity: 0.14;
+  opacity: 1;
+}
+
+[data-theme='light'] .education-year span {
+  color: var(--muted);
+  opacity: 1;
 }
 
 [data-theme='light'] .education-card__index {
@@ -5603,13 +5625,13 @@ body.intro-ready .hero__socials {
 
 .section-watermark {
   position: absolute;
-  bottom: 0.9rem;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -55%);
   font-family: var(--font-display, inherit);
-  font-size: clamp(2rem, 6vw, 4.2rem);
+  font-size: clamp(2.4rem, 6.8vw, 4.6rem);
   font-weight: 900;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.035);
   pointer-events: none;
@@ -5617,8 +5639,7 @@ body.intro-ready .hero__socials {
   z-index: 1;
   white-space: nowrap;
   line-height: 1;
-  filter: blur(0.2px);
-  max-width: 58%;
+  max-width: 65%;
   overflow: hidden;
   text-overflow: clip;
 }
@@ -5929,3 +5950,172 @@ body.intro-ready .hero__socials {
     transform: translate(-50%, 0) !important;
   }
 }
+
+/* ==========================================================================
+ * HERO DEVELOPER TERMINAL CARD (Cybernetic Glass Spec Window)
+ * ========================================================================== */
+.hero__terminal {
+  display: none;
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  justify-self: end;
+  z-index: 2;
+  user-select: none;
+}
+
+@media (min-width: 992px) {
+  .hero__terminal {
+    display: block;
+  }
+}
+
+.terminal-card {
+  position: relative;
+  background: rgba(14, 18, 16, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.5), 0 0 28px rgba(0, 240, 160, 0.08);
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease,
+              box-shadow 0.35s ease;
+}
+
+.terminal-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 240, 160, 0.35);
+  box-shadow: 0 32px 60px rgba(0, 0, 0, 0.6), 0 0 36px rgba(0, 240, 160, 0.16);
+}
+
+.terminal-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.7;
+}
+
+.terminal-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.15rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.terminal-card__dots {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.terminal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.terminal-dot--red { background: #ff5f56; }
+.terminal-dot--yellow { background: #ffbd2e; }
+.terminal-dot--green { background: #27c93f; }
+
+.terminal-card__tab {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-strong);
+}
+
+.terminal-card__tab .icon {
+  width: 14px;
+  height: 14px;
+  color: var(--accent);
+}
+
+.terminal-card__badge {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(0, 240, 160, 0.1);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 240, 160, 0.25);
+}
+
+.terminal-card__body {
+  padding: 1.25rem 1.35rem;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.terminal-code {
+  margin: 0;
+  font-family: var(--font-mono);
+  overflow-x: auto;
+}
+
+.terminal-code code {
+  font-family: inherit;
+}
+
+/* Syntax Token Colors */
+.tok-kw { color: #f7768e; font-weight: 600; }
+.tok-var { color: #7aa2f7; font-weight: 500; }
+.tok-prop { color: #bb9af7; }
+.tok-str { color: #9ece6a; }
+.tok-bool { color: #ff9e64; font-weight: 600; }
+.tok-prompt { color: var(--accent); font-weight: bold; }
+.tok-accent { color: var(--accent); font-weight: 600; }
+
+.terminal-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 1.15rem;
+  background: rgba(0, 0, 0, 0.35);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--dim);
+}
+
+[data-theme='light'] .terminal-card {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08), 0 0 20px rgba(0, 240, 160, 0.1);
+}
+
+[data-theme='light'] .terminal-card__header {
+  background: rgba(0, 0, 0, 0.03);
+  border-bottom-color: rgba(0, 0, 0, 0.07);
+}
+
+[data-theme='light'] .terminal-card__body {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+[data-theme='light'] .terminal-card__footer {
+  background: rgba(0, 0, 0, 0.04);
+  border-top-color: rgba(0, 0, 0, 0.06);
+}
+
+[data-theme='light'] .tok-kw { color: #d73a49; }
+[data-theme='light'] .tok-var { color: #005cc5; }
+[data-theme='light'] .tok-prop { color: #6f42c1; }
+[data-theme='light'] .tok-str { color: #22863a; }
+[data-theme='light'] .tok-bool { color: #e36209; }
